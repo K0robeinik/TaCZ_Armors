@@ -1,3 +1,19 @@
 {
-  "item.taczarmors.combat_t1_helmet": "Steel Helmet"
+  "item.taczarmors.combat_t1_helmet": "Soldier's Helmet",
+  "item.taczarmors.combat_t1_chestplate": "Soldier's Jacket",
+  "item.taczarmors.combat_t1_leggings": "Soldier's Trousers",
+  "item.taczarmors.combat_t1_boots": "Soldier's Boots",
+  "item.taczarmors.ghillie_helmet": "Ghillie Helmet",
+  "item.taczarmors.ghillie_chestplate": "Ghillie Jacket",
+  "item.taczarmors.ghillie_leggings": "Ghillie Pants",
+  "item.taczarmors.ghillie_boots": "Ghillie Boots",
+  "item.taczarmors.security_helmet": "Security Guard Helmet",
+  "item.taczarmors.security_chestplate": "Security Guard Vest",
+  "item.taczarmors.security_leggings": "Security Guard Jeans",
+  "item.taczarmors.security_boots": "Security Guard Boots",
+  "item.taczarmors.assassin_helmet": "Assassin Mask",
+  "item.taczarmors.assassin_chestplate": "Assassin Vest",
+  "item.taczarmors.assassin_leggings": "Assassin Pants",
+  "item.taczarmors.assassin_boots": "Assassin Boots",
+  "itemGroup.taczArmors": "TaCZ Armors"
 }
