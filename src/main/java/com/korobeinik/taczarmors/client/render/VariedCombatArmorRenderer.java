@@ -3,6 +3,7 @@ package com.korobeinik.taczarmors.client.render;
 import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.content.VariedCombatArmorItem;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
@@ -16,10 +17,10 @@ public class VariedCombatArmorRenderer extends GeoArmorRenderer<VariedCombatArmo
             public ResourceLocation getAnimationResource (VariedCombatArmorItem anime){
                 return animationLocation;
             }
-            @Override
-            public ResourceLocation getTextureResource (VariedCombatArmorItem anime) {
-                return new ResourceLocation(TaczArmors.MODID, "textures/item/armor/" + suit + "_armor_" + anime.getCurrentVariant(stack) + ".png");
-            }
         });
+    }
+    @Override
+    public ResourceLocation getTextureLocation (VariedCombatArmorItem anime) {
+        return new ResourceLocation(TaczArmors.MODID, "textures/item/armor/" + anime.getSuitName() + "_armor_" + anime.getCurrentVariant(currentStack) + ".png");
     }
 }

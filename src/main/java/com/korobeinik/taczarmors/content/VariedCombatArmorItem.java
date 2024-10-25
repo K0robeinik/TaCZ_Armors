@@ -55,6 +55,14 @@ public class VariedCombatArmorItem extends CombatArmorItem{
         return tv;
     }
 
+    public byte getCurrentVariant(ItemStack itemStack) {
+        CompoundTag cur = itemStack.getTag();
+        if (cur.contains("taVariant")){
+            return cur.getByte("taVariant");
+        }
+        return (byte) 0;
+    }
+
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pHand) {
         boolean shiftPressed = pPlayer.isShiftKeyDown();
@@ -63,17 +71,12 @@ public class VariedCombatArmorItem extends CombatArmorItem{
             CompoundTag nbtData = new CompoundTag();
             nbtData.putByte("taVariant", switchVariant(itemStack));
             itemStack.setTag(nbtData);
+            if (!pLevel.isClientSide()) {
+                pPlayer.sendSystemMessage(Component.literal("Switched camo to: " + getVariant()[getCurrentVariant(itemStack)]));
+            }
             return InteractionResultHolder.success(itemStack);
         }
         return super.use(pLevel, pPlayer, pHand);
-    }
-
-    public byte getCurrentVariant(ItemStack itemStack) {
-        CompoundTag cur = itemStack.getTag();
-        if (cur.contains("taVariant")){
-            return cur.getByte("taVariant");
-        }
-        return (byte) 0;
     }
 
     @Override
@@ -91,7 +94,9 @@ public class VariedCombatArmorItem extends CombatArmorItem{
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 VariedCombatArmorItem item = (VariedCombatArmorItem) itemStack.getItem();
                 if (this.renderer == null) {
-                    this.renderer = new VariedCombatArmorRenderer(item.getSuitName(), itemStack);
+                    this.renderer = new VariedCombatArmorRenderer(item.getSuitName(), itemStack){
+
+                    };
                 }
 
                 // This prepares our GeoArmorRenderer for the current render frame.

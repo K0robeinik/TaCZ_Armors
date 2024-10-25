@@ -10,7 +10,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TaczArmors.MODID);
-    private static final String[] ghillieVariants = {"Oak", "Spruce"};
 
     public static final RegistryObject<Item> T1_COMBAT_HELMET = ITEMS.register("combat_t1_helmet",
             () -> new CombatArmorItem(
@@ -39,6 +38,7 @@ public class ItemInit {
                     ArmorItem.Type.BOOTS
             )
     );
+    private static final String[] ghillieVariants = {"Oak", "Spruce", "Birch", "Jungle", "Acacia", "Dark Oak"};
 
     public static final RegistryObject<Item> GHILLIE_HELMET = ITEMS.register("ghillie_helmet",
             () -> new VariedCombatArmorItem(
