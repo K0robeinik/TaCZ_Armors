@@ -25,9 +25,9 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        Item item = entity.getItemBySlot(EquipmentSlot.LEGS).getItem();
+        Item item = entity.getItemBySlot(EquipmentSlot.FEET).getItem();
         if (item instanceof CombatArmorItem combatArmorItem ) {
-            float jumpHeight = combatArmorItem.getMaterial().getJumpHeight(ArmorItem.Type.LEGGINGS);
+            float jumpHeight = combatArmorItem.getMaterial().getJumpHeight(ArmorItem.Type.BOOTS);
             if (jumpHeight>0) entity.setDeltaMovement(entity.getDeltaMovement().add(0, jumpHeight, 0));
         }
     }

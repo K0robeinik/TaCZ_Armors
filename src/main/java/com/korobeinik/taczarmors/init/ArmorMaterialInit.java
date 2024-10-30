@@ -1,6 +1,7 @@
 package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.content.CombatArmorMaterials;
+import com.korobeinik.taczarmors.content.PoweredCombatArmorMaterial;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -51,11 +52,31 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             0,
             0,
-            .25F,
             .1F,
-            .5F,
+            .1F,
+            .1F,
             .4F,
             .5F,
             -4
+    );
+
+    public static final PoweredCombatArmorMaterial EXOSKELETON = new PoweredCombatArmorMaterial(
+            "exoskeleton",
+            50,
+            new int[] {2, 5, 3, 2},
+            30,
+            SoundEvents.ARMOR_EQUIP_NETHERITE,
+            Ingredient.of(Items.AMETHYST_SHARD),
+            1,
+            2,
+            .2F,
+            .1F,
+            .2F,
+            .2F,
+            .5F,
+            -5,
+            1,
+            2,
+            1
     );
 }

@@ -15,5 +15,10 @@
   "item.taczarmors.assassin_chestplate": "Assassin Vest",
   "item.taczarmors.assassin_leggings": "Assassin Pants",
   "item.taczarmors.assassin_boots": "Assassin Boots",
-  "itemGroup.taczArmors": "TaCZ Armors"
+  "item.taczarmors.exoskeleton_helmet": "Exoskeleton Brain Sensors",
+  "item.taczarmors.exoskeleton_chestplate": "Exoskeleton Upper Body Support",
+  "item.taczarmors.exoskeleton_leggings": "Exoskeleton Leg Support",
+  "item.taczarmors.exoskeleton_boots": "Exoskeleton Landing Shoes",
+  "itemGroup.taczArmors": "TaCZ Armors",
+  "itemGroup.taczMaterials": "Armor Materials"
 }

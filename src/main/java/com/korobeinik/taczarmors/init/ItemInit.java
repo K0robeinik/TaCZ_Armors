@@ -2,12 +2,14 @@ package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
+import com.korobeinik.taczarmors.content.PoweredCombatArmorItem;
 import com.korobeinik.taczarmors.content.VariedCombatArmorItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import static com.korobeinik.taczarmors.init.CreativeTabInit.MATERIAL_TAB_ITEMS;
 import static com.korobeinik.taczarmors.init.CreativeTabInit.addToTab;
 
 public class ItemInit {
@@ -129,4 +131,46 @@ public class ItemInit {
                     ArmorItem.Type.BOOTS
             )
     ));
+
+    public static String[] exoVariants = {"Light", "Dark"};
+
+    public static final RegistryObject<Item> EXOSKELETON_HELMET = addToTab(ITEMS.register("exoskeleton_helmet",
+            () -> new PoweredCombatArmorItem(
+                    ArmorMaterialInit.EXOSKELETON,
+                    ArmorItem.Type.HELMET,
+                    exoVariants
+            )
+    ));
+
+    public static final RegistryObject<Item> EXOSKELETON_CHESTPLATE = addToTab(ITEMS.register("exoskeleton_chestplate",
+            () -> new PoweredCombatArmorItem(
+                    ArmorMaterialInit.EXOSKELETON,
+                    ArmorItem.Type.CHESTPLATE,
+                    exoVariants
+            )
+    ));
+
+    public static final RegistryObject<Item> EXOSKELETON_LEGGINGS = addToTab(ITEMS.register("exoskeleton_leggings",
+            () -> new PoweredCombatArmorItem(
+                    ArmorMaterialInit.EXOSKELETON,
+                    ArmorItem.Type.LEGGINGS,
+                    exoVariants
+            )
+    ));
+
+    public static final RegistryObject<Item> EXOSKELETON_BOOTS = addToTab(ITEMS.register("exoskeleton_boots",
+            () -> new PoweredCombatArmorItem(
+                    ArmorMaterialInit.EXOSKELETON,
+                    ArmorItem.Type.BOOTS,
+                    exoVariants
+            )
+    ));
+
+    //=================================================================================(Crafting Materials)=================================================================================
+    private static RegistryObject<Item> registerMaterial(String name) {
+        return addToTab(ITEMS.register(name, () -> new Item(new Item.Properties())), MATERIAL_TAB_ITEMS);
+    }
+    public static final RegistryObject<Item> STEEL_INGOT = registerMaterial("steel_ingot");
+    public static final RegistryObject<Item> PLASTIC_SHEET = registerMaterial("plastic_sheet");
+    public static final RegistryObject<Item> COPPER_WIRE = registerMaterial("copper_wire");
 }

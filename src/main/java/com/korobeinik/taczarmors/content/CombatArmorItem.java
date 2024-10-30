@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 
 public class CombatArmorItem extends ArmorItem implements GeoItem {
     private final Multimap<Attribute, AttributeModifier> defModifiers;
-    private static final UUID[] ARMOR_MODIFIERS = new UUID[]{
+    protected static final UUID[] ARMOR_MODIFIERS = new UUID[]{
             UUID.fromString("2AD3F246-FEE2-4E67-B886-69FD380BB150"),
             UUID.fromString("0F3D476D-C118-4544-8365-64846904B48E"),
             UUID.fromString("E8499B04-0E66-4726-AB29-64469D734E0D"),
@@ -51,10 +51,9 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         UUID uuid = ARMOR_MODIFIERS[type.ordinal()];
         builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.getType()), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Health bonus", armorMaterial.getHpBonus(), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed", armorMaterial.getSpeed(), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getSwimSpeed(), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        //builder.put(Attributes.JUMP_STRENGTH, new AttributeModifier(uuid, "Jump Strength", armorMaterial.getJumpHeight(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
+        builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Health bonus", armorMaterial.getHpBonus(this.getType()), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed", armorMaterial.getSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
+        builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getSwimSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
         builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
         if (armorMaterial.getKnockbackResistance() > 0) {
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
@@ -85,6 +84,7 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.renderer == null)
                     this.renderer = new CombatArmorRenderer(suitName);
+
 
                 // This prepares our GeoArmorRenderer for the current render frame.
                 // These parameters may be null however, so we don't do anything further with them

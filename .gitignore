@@ -23,5 +23,4 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
-*.bbmodel
-ExoSkeletonArmor.bbmodel
+/src/main/resources/assets/taczarmors/textures/item/materials/copper palette.png

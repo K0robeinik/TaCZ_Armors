@@ -55,8 +55,10 @@ public class VariedCombatArmorItem extends CombatArmorItem{
 
     public byte getCurrentVariant(ItemStack itemStack) {
         CompoundTag cur = itemStack.getTag();
-        if (cur.contains("taVariant")){
-            return cur.getByte("taVariant");
+        if (cur != null) {
+            if (cur.contains("taVariant")) {
+                return cur.getByte("taVariant");
+            }
         }
         return (byte) 0;
     }
@@ -92,9 +94,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 VariedCombatArmorItem item = (VariedCombatArmorItem) itemStack.getItem();
                 if (this.renderer == null) {
-                    this.renderer = new VariedCombatArmorRenderer(item.getSuitName()){
-
-                    };
+                    this.renderer = new VariedCombatArmorRenderer(item.getSuitName());
                 }
 
                 // This prepares our GeoArmorRenderer for the current render frame.

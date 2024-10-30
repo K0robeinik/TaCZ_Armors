@@ -12,9 +12,8 @@ import java.util.function.Supplier;
 
 public class CombatArmorMaterials implements CombatArmorMaterial{
     protected static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-
-    protected static final float[] JUMP_HEIGHT_ARRAY = new float[]{0, 0, 1, 0};
     protected static final float[] STEP_HEIGHT_ARRAY = new float[]{0, 0, 0, 1};
+    protected static final float[] ONE_ARRAY = new float[]{1, 1, 1, 1};
     private final String name;
     private final int durability;
     private final int[] damageReduction;
@@ -81,25 +80,26 @@ public class CombatArmorMaterials implements CombatArmorMaterial{
     @Override
     public float getKnockbackResistance() { return knockbackResistance; }
     @Override
-    public int getHpBonus(){
-        return hpBonus;
+    public int getHpBonus(ArmorItem.Type type){
+        return (int) ONE_ARRAY[type.ordinal()] * hpBonus;
     }
     @Override
-    public float getSpeed(){
-        return speed;
+    public float getSpeed(ArmorItem.Type type){
+        return ONE_ARRAY[type.ordinal()] * speed;
     }
     @Override
-    public float getSwimSpeed(){
-        return swimSpeed;
+    public float getSwimSpeed(ArmorItem.Type type){
+        return ONE_ARRAY[type.ordinal()] * swimSpeed;
     }
     @Override
     public float getJumpHeight(ArmorItem.Type type) {
-        return JUMP_HEIGHT_ARRAY[type.ordinal()] * jumpHeight;
+        return STEP_HEIGHT_ARRAY[type.ordinal()] * jumpHeight;
     }
     @Override
     public float getStepHeight(ArmorItem.Type type) {
         return STEP_HEIGHT_ARRAY[type.ordinal()] * stepHeight;
     }
+    @Override
     public float getFallHeight(ArmorItem.Type type) {
         return STEP_HEIGHT_ARRAY[type.ordinal()] * fallHeight;
     }

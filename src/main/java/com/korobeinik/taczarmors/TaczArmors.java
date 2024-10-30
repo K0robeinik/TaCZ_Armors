@@ -1,6 +1,7 @@
 package com.korobeinik.taczarmors;
 
 import com.korobeinik.taczarmors.init.ArmorMaterialInit;
+import com.korobeinik.taczarmors.init.BlockInit;
 import com.korobeinik.taczarmors.init.CreativeTabInit;
 import com.korobeinik.taczarmors.init.ItemInit;
 import com.mojang.realmsclient.util.JsonUtils;
@@ -15,8 +16,8 @@ public class TaczArmors {
     public TaczArmors() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ItemInit.ITEMS.register(bus);
+        BlockInit.BLOCKS.register(bus);
         CreativeTabInit.TABS.register(bus);
-        System.out.println();
+        ItemInit.ITEMS.register(bus);
     }
 }
