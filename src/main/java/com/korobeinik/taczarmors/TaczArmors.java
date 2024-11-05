@@ -1,13 +1,12 @@
 package com.korobeinik.taczarmors;
 
-import com.korobeinik.taczarmors.init.ArmorMaterialInit;
-import com.korobeinik.taczarmors.init.BlockInit;
-import com.korobeinik.taczarmors.init.CreativeTabInit;
-import com.korobeinik.taczarmors.init.ItemInit;
-import com.mojang.realmsclient.util.JsonUtils;
+import com.korobeinik.taczarmors.init.*;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.jetbrains.annotations.NotNull;
 
 @Mod(TaczArmors.MODID)
 public class TaczArmors {

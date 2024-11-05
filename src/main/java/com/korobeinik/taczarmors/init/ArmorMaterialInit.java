@@ -55,7 +55,7 @@ public class ArmorMaterialInit {
             .1F,
             .1F,
             .1F,
-            .4F,
+            10F,
             .5F,
             -4
     );

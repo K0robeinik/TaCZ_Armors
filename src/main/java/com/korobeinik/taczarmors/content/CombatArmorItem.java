@@ -3,7 +3,10 @@ package com.korobeinik.taczarmors.content;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.korobeinik.taczarmors.client.render.CombatArmorRenderer;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -12,9 +15,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -24,6 +30,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -54,7 +61,8 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Health bonus", armorMaterial.getHpBonus(this.getType()), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed", armorMaterial.getSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
         builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getSwimSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
+        builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Step Height", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
+        //builder.put(ModAttributes.BULLET_RESISTANCE.get(), new AttributeModifier(uuid, "Bullet Resistance", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
         if (armorMaterial.getKnockbackResistance() > 0) {
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
         }
@@ -73,6 +81,17 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot p_40390_) {
         return p_40390_ == this.type.getSlot() ? this.defModifiers : super.getDefaultAttributeModifiers(p_40390_);
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
+        if(Screen.hasShiftDown()){
+            list.add(Component.literal("buffs be like"));
+        }
+        else {
+            list.add(Component.literal("Press [Shift] for buffs"));
+        }
+        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
     }
 
     @Override
@@ -106,5 +125,10 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+        return "minecraft:textures/models/armor/diamond_layer_1.png";
     }
 }

@@ -69,8 +69,6 @@ public class CombatArmorMaterials implements CombatArmorMaterial{
     @Override
     public Ingredient getRepairIngredient() { return this.ingredient == null ? Ingredient.EMPTY : this.ingredient; }
 
-    //public void setRepairMaterial(Ingredient ingredient) { this.ingredient = ingredient; }
-
     @Override
     public @NotNull String getName() { return name; }
 
