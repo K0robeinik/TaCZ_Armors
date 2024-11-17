@@ -1,12 +1,15 @@
 package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.content.CombatArmorMaterials;
-import com.korobeinik.taczarmors.content.PoweredCombatArmorMaterial;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class ArmorMaterialInit {
+    private static float[] createArray(float x){
+        return new float[] {x, x, x, x};
+    }
+    private static float[] ZERO_ARRAY = new float[] {0, 0, 0, 0};
     public static final CombatArmorMaterials COMBAT_T1 = new CombatArmorMaterials(
             "combat_t1",
             20,
@@ -15,8 +18,8 @@ public class ArmorMaterialInit {
             SoundEvents.ARMOR_EQUIP_GENERIC,
             Ingredient.of(Items.AMETHYST_SHARD),
             0,
-            2,
-            .1F,
+            createArray(2),
+            createArray(.1F),
             .1F
     );
 
@@ -38,8 +41,8 @@ public class ArmorMaterialInit {
             SoundEvents.ARMOR_EQUIP_LEATHER,
             Ingredient.of(Items.AMETHYST_SHARD),
             2.0F,
-            0,
-            .05F,
+            ZERO_ARRAY,
+            createArray(.05F),
             .1F
     );
 
@@ -51,16 +54,16 @@ public class ArmorMaterialInit {
             SoundEvents.ARMOR_EQUIP_LEATHER,
             Ingredient.of(Items.AMETHYST_SHARD),
             0,
-            0,
+            ZERO_ARRAY,
+            createArray(.1F),
             .1F,
-            .1F,
-            .1F,
-            10F,
+            createArray(.1F),
+            createArray(10F),
             .5F,
-            -4
+            createArray(-4)
     );
 
-    public static final PoweredCombatArmorMaterial EXOSKELETON = new PoweredCombatArmorMaterial(
+    public static final CombatArmorMaterials EXOSKELETON = new CombatArmorMaterials(
             "exoskeleton",
             50,
             new int[] {2, 5, 3, 2},
@@ -68,15 +71,38 @@ public class ArmorMaterialInit {
             SoundEvents.ARMOR_EQUIP_NETHERITE,
             Ingredient.of(Items.AMETHYST_SHARD),
             1,
+            createArray(2), //health
+            createArray(.2F), //speed
+            .1F, //knockback res
+            createArray(.2F),
+            new float[] {0, 0, 0, .2F}, //jump
+            .5F, //step
+            createArray(-5),
+            createArray(1),
+            createArray(2),
+            createArray(1)
+    );
+
+    public static final CombatArmorMaterials MODERN = new CombatArmorMaterials(
+            "modern",
+            35,
+            new int[] {5, 10, 8, 4},
+            30,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            Ingredient.of(Items.AMETHYST_SHARD),
             2,
-            .2F,
-            .1F,
-            .2F,
-            .2F,
-            .5F,
-            -5,
-            1,
-            2,
+            ZERO_ARRAY,
+            ZERO_ARRAY,
             1
+    );
+
+    public static final CombatArmorMaterials BERET = new CombatArmorMaterials(
+            "beret",
+            30,
+            new int[] {5, 0, 0, 0},
+            30,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            Ingredient.of(Items.AMETHYST_SHARD),
+            0
     );
 }

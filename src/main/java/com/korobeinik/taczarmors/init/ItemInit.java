@@ -1,8 +1,8 @@
 package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.TaczArmors;
+import com.korobeinik.taczarmors.content.ColorBottle;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
-import com.korobeinik.taczarmors.content.PoweredCombatArmorItem;
 import com.korobeinik.taczarmors.content.VariedCombatArmorItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
@@ -135,7 +135,7 @@ public class ItemInit {
     public static String[] exoVariants = {"Light", "Dark"};
 
     public static final RegistryObject<Item> EXOSKELETON_HELMET = addToTab(ITEMS.register("exoskeleton_helmet",
-            () -> new PoweredCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.EXOSKELETON,
                     ArmorItem.Type.HELMET,
                     exoVariants
@@ -143,7 +143,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> EXOSKELETON_CHESTPLATE = addToTab(ITEMS.register("exoskeleton_chestplate",
-            () -> new PoweredCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.EXOSKELETON,
                     ArmorItem.Type.CHESTPLATE,
                     exoVariants
@@ -151,7 +151,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> EXOSKELETON_LEGGINGS = addToTab(ITEMS.register("exoskeleton_leggings",
-            () -> new PoweredCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.EXOSKELETON,
                     ArmorItem.Type.LEGGINGS,
                     exoVariants
@@ -159,10 +159,45 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> EXOSKELETON_BOOTS = addToTab(ITEMS.register("exoskeleton_boots",
-            () -> new PoweredCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.EXOSKELETON,
                     ArmorItem.Type.BOOTS,
                     exoVariants
+            )
+    ));
+
+    public static final RegistryObject<Item> MODERN_HELMET = addToTab(ITEMS.register("modern_helmet",
+            () -> new CombatArmorItem(
+                    ArmorMaterialInit.MODERN,
+                    ArmorItem.Type.HELMET
+            )
+    ));
+
+    public static final RegistryObject<Item> MODERN_CHESTPLATE = addToTab(ITEMS.register("modern_chestplate",
+            () -> new CombatArmorItem(
+                    ArmorMaterialInit.MODERN,
+                    ArmorItem.Type.CHESTPLATE
+            )
+    ));
+
+    public static final RegistryObject<Item> MODERN_LEGGINGS = addToTab(ITEMS.register("modern_leggings",
+            () -> new CombatArmorItem(
+                    ArmorMaterialInit.MODERN,
+                    ArmorItem.Type.LEGGINGS
+            )
+    ));
+
+    public static final RegistryObject<Item> MODERN_BOOTS = addToTab(ITEMS.register("modern_boots",
+            () -> new CombatArmorItem(
+                    ArmorMaterialInit.MODERN,
+                    ArmorItem.Type.BOOTS
+            )
+    ));
+
+    public static final RegistryObject<Item> BERET = addToTab(ITEMS.register("beret",
+            () -> new CombatArmorItem(
+                    ArmorMaterialInit.BERET,
+                    ArmorItem.Type.HELMET
             )
     ));
 
@@ -173,4 +208,6 @@ public class ItemInit {
     public static final RegistryObject<Item> STEEL_INGOT = registerMaterial("steel_ingot");
     public static final RegistryObject<Item> PLASTIC_SHEET = registerMaterial("plastic_sheet");
     public static final RegistryObject<Item> COPPER_WIRE = registerMaterial("copper_wire");
+    //==================================================================================(Color Bottles)============================================================================
+    public static final RegistryObject<Item> COLOR_BOTTLE = addToTab(ITEMS.register("color_bottle", () -> new ColorBottle(new Item.Properties())));
 }

@@ -3,6 +3,7 @@ package com.korobeinik.taczarmors.content;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.korobeinik.taczarmors.client.render.CombatArmorRenderer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
@@ -57,12 +58,12 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIERS[type.ordinal()];
         builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.getType()), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));/*
         builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Health bonus", armorMaterial.getHpBonus(this.getType()), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed", armorMaterial.getSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
         builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getSwimSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
         builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Step Height", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
-        //builder.put(ModAttributes.BULLET_RESISTANCE.get(), new AttributeModifier(uuid, "Bullet Resistance", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
+        builder.put(ModAttributes.BULLET_RESISTANCE.get(), new AttributeModifier(uuid, "Bullet Resistance", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));*/
         if (armorMaterial.getKnockbackResistance() > 0) {
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
         }
@@ -86,12 +87,21 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
         if(Screen.hasShiftDown()){
-            list.add(Component.literal("buffs be like"));
+            list.add(Component.literal("Bonuses:"));
+            for (CombatArmorBonus bonus: CombatArmorBonus.values()) {
+                appendBonus(bonus, list);
+            }
         }
         else {
-            list.add(Component.literal("Press [Shift] for buffs"));
+            list.add(Component.literal("Bonuses: Press [Shift]"));
         }
         super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
+    }
+
+    private void appendBonus(CombatArmorBonus bonus, List<Component> list){
+        if (this.getMaterial().getBonusForType(bonus, type)!=0){
+            list.add(Component.literal(bonus.name() + ": " + this.getMaterial().getBonusForType(bonus, type)).withStyle(ChatFormatting.GREEN));
+        }
     }
 
     @Override

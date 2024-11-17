@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
-public class VariedCombatArmorRenderer extends GeoArmorRenderer<VariedCombatArmorItem> {
+public class VariedCombatArmorRenderer extends NewArmorRenderer<VariedCombatArmorItem> {
 
     private static final ResourceLocation animationLocation = new ResourceLocation(TaczArmors.MODID, "animations/item/armor/default.animation.json");
     public VariedCombatArmorRenderer(String suit) {
