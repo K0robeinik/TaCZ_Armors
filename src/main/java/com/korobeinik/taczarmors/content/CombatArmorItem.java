@@ -111,8 +111,7 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
 
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-                if (this.renderer == null)
-                    this.renderer = new CombatArmorRenderer(suitName);
+                if (this.renderer == null) this.renderer = new CombatArmorRenderer(suitName);
 
 
                 // This prepares our GeoArmorRenderer for the current render frame.

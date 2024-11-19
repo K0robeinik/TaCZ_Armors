@@ -2,20 +2,15 @@ package com.korobeinik.taczarmors.content;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
-public class CombatArmorMaterials implements CombatArmorMaterial{
+public class CombatArmorMaterials implements ArmorMaterial {
     protected static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-    protected static final float[] STEP_HEIGHT_ARRAY = new float[]{0, 0, 0, 1};
-    protected static final float[] ONE_ARRAY = new float[]{1, 1, 1, 1};
-    protected static final float[] ZERO_ARRAY = new float[]{0, 0, 0, 0};
-    protected static final float[] CHESTPLATE_ARRAY = new float[]{0, 1, 0, 0};
     private final String name;
     private final int durability;
     private final int[] damageReduction;
@@ -24,46 +19,41 @@ public class CombatArmorMaterials implements CombatArmorMaterial{
     private final float toughness;
     private final Ingredient ingredient;
     public float knockbackResistance;
-    private final float[] hpBonus;
     private final float[] speed;
-    private final float[] jumpHeight;
-    private final float stepHeight;
-    private final float[] fallHeight;
     private final float[] swimSpeed;
+    private final float[] hpBonus;
+    private final float[] jumpHeight;
+    private final float[] fallHeight;
     private final float[] attackDamage;
     private final float[] attackSpeed;
     private final float[] attackKnockback;
 
-    public CombatArmorMaterials(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness) {
-        this(name, durability, damageReduction, encantability, sound, ingredient, toughness, ZERO_ARRAY, ZERO_ARRAY, 0F, ZERO_ARRAY, ZERO_ARRAY, 0F, ZERO_ARRAY);
+    public CombatArmorMaterials(Builder builder) {
+        this.name = builder.name;
+        this.durability = builder.durability;
+        this.damageReduction = builder.damageReduce;
+        this.encantability = builder.encantability;
+        this.sound = builder.sound;
+        this.ingredient = builder.ingredient;
+        this.toughness = builder.toughness;
+        this.knockbackResistance = builder.knockbackResist;
+        this.speed = builder.speed;
+        this.swimSpeed = builder.swimSpeed;
+        this.hpBonus = builder.hpBonus;
+        this.jumpHeight = builder.jumpHeight;
+        this.fallHeight = builder.fallHeight;
+        this.attackDamage = builder.attackDamage;
+        this.attackSpeed = builder.attackSpeed;
+        this.attackKnockback = builder.attackKnockback;
     }
 
-    public CombatArmorMaterials(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float[] hpBonus, float[] speed, float knockbackResist) {
-        this(name, durability, damageReduction, encantability, sound, ingredient, toughness, hpBonus, speed, knockbackResist, ZERO_ARRAY, ZERO_ARRAY, 0F, ZERO_ARRAY);
+
+    public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness) {
+        return builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, 0.0F);
     }
 
-    public CombatArmorMaterials(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float[] hpBonus, float[] speed, float knockbackResist, float[] swimSpeed, float[] jumpHeight, float stepHeight, float[] fallHeight) {
-        this(name, durability, damageReduction, encantability, sound, ingredient, toughness, hpBonus, speed, knockbackResist, ZERO_ARRAY, ZERO_ARRAY, 0F, ZERO_ARRAY, ZERO_ARRAY, ZERO_ARRAY, ZERO_ARRAY);
-    }
-
-    public CombatArmorMaterials(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float[] hpBonus, float[] speed, float knockbackResist, float[] swimSpeed, float[] jumpHeight, float stepHeight, float[] fallHeight, float[] attackSpeed, float[] attackKnockback, float[] attackDamage) {
-        this.name = name;
-        this.durability = durability;
-        this.damageReduction = damageReduction;
-        this.encantability = encantability;
-        this.sound = sound;
-        this.ingredient = ingredient;
-        this.toughness = toughness;
-        this.hpBonus = hpBonus;
-        this.speed = speed;
-        this.knockbackResistance = knockbackResist;
-        this.swimSpeed = swimSpeed;
-        this.jumpHeight = jumpHeight;
-        this.stepHeight = stepHeight;
-        this.fallHeight = fallHeight;
-        this.attackSpeed = attackSpeed;
-        this.attackKnockback = attackKnockback;
-        this.attackDamage = attackDamage;
+    public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist) {
+        return new Builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, knockbackResist);
     }
 
     @Override
@@ -71,6 +61,8 @@ public class CombatArmorMaterials implements CombatArmorMaterial{
 
     @Override
     public int getDefenseForType(ArmorItem.Type type) { return this.damageReduction[type.ordinal()]; }
+
+    //public int getDefenseForType(ArmorItem.Type type) { return MAX_DAMAGE_ARRAY [type.ordinal()]; }
 
     @Override
     public int getEnchantmentValue() { return this.encantability; }
@@ -90,17 +82,16 @@ public class CombatArmorMaterials implements CombatArmorMaterial{
     @Override
     public float getKnockbackResistance() { return knockbackResistance; }
 
-    @Override
     public float getBonusForType(CombatArmorBonus bonus, ArmorItem.Type type) {
         switch (bonus){
             case SPEED -> {return speed[type.ordinal()];}
-            case SWIM_SPEED -> {return swimSpeed[type.ordinal()];}
-            case HEALTH -> {return hpBonus[type.ordinal()];}
-            case JUMPHEIGHT -> {return jumpHeight[type.ordinal()];}
-            case FALLHEIGHT -> {return fallHeight[type.ordinal()];}
-            case ATTACK_DAMAGE -> {return attackDamage[type.ordinal()];}
-            case ATTACK_SPEED -> {return attackSpeed[type.ordinal()];}
-            case ATTACK_KNOCKBACK -> {return attackKnockback[type.ordinal()];}
+            case SWIM_SPEED -> {return swimSpeed == null ? 0 : swimSpeed[type.ordinal()];}
+            case HEALTH -> {return hpBonus == null ? 0 : hpBonus[type.ordinal()];}
+            case JUMPHEIGHT -> {return jumpHeight == null ? 0 : jumpHeight[type.ordinal()];}
+            case FALLHEIGHT -> {return fallHeight == null ? 0 : fallHeight[type.ordinal()];}
+            case ATTACK_DAMAGE -> {return attackDamage == null ? 0 : attackDamage[type.ordinal()];}
+            case ATTACK_SPEED -> {return attackSpeed == null ? 0 : attackSpeed[type.ordinal()];}
+            case ATTACK_KNOCKBACK -> {return attackKnockback == null ? 0 : attackKnockback[type.ordinal()];}
         }
         return 0;
     }
@@ -116,43 +107,62 @@ public class CombatArmorMaterials implements CombatArmorMaterial{
         return sum;
     }
 
-    /*@Override
-    public int getHpBonus(ArmorItem.Type type){
-        return (int) ONE_ARRAY[type.ordinal()] * hpBonus;
-    }
-    @Override
-    public float getSpeed(ArmorItem.Type type){
-        return ONE_ARRAY[type.ordinal()] * speed;
-    }
-    @Override
-    public float getSwimSpeed(ArmorItem.Type type){
-        return ONE_ARRAY[type.ordinal()] * swimSpeed;
-    }
-    @Override
-    public float getJumpHeight(ArmorItem.Type type) {
-        return STEP_HEIGHT_ARRAY[type.ordinal()] * jumpHeight;
-    }
-    @Override
-    public float getStepHeight(ArmorItem.Type type) {
-        return STEP_HEIGHT_ARRAY[type.ordinal()] * stepHeight;
-    }
-    @Override
-    public float getFallHeight(ArmorItem.Type type) {
-        return STEP_HEIGHT_ARRAY[type.ordinal()] * fallHeight;
-    }
+    public static class Builder {
+        private final String name;
+        private final int durability;
+        private final int[] damageReduce;
+        private final int encantability;
+        private final SoundEvent sound;
+        private final Ingredient ingredient;
+        private final float toughness;
+        private final float knockbackResist;
 
-    @Override
-    public float getAttackSpeed(ArmorItem.Type type) {
-        return CHESTPLATE_ARRAY[type.ordinal()] * attackSpeed;
-    }
+        private final float[] ZERO_ARRAY = new float[]{0, 0, 0, 0};
+        private float[] speed = ZERO_ARRAY;
+        private float[] swimSpeed = ZERO_ARRAY;
+        private float[] hpBonus = ZERO_ARRAY;
+        private float[] jumpHeight = ZERO_ARRAY;
+        private float[] fallHeight = ZERO_ARRAY;
+        private float[] attackDamage = ZERO_ARRAY;
+        private float[] attackSpeed = ZERO_ARRAY;
+        private float[] attackKnockback = ZERO_ARRAY;
 
-    @Override
-    public float getAttackKnockback(ArmorItem.Type type) {
-        return CHESTPLATE_ARRAY[type.ordinal()] * attackKnockback;
-    }
+        private Builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist){
+            this.name = name;
+            this.durability = durability;
+            this.damageReduce = damageReduction;
+            this.encantability = encantability;
+            this.sound = sound;
+            this.ingredient = ingredient;
+            this.toughness = toughness;
+            this.knockbackResist = knockbackResist;
+        }
 
-    @Override
-    public float getAttackDamage(ArmorItem.Type type) {
-        return CHESTPLATE_ARRAY[type.ordinal()] * attackDamage;
-    }*/
+        private void switchBonus(CombatArmorBonus bonus, float[] value) {
+            switch (bonus){
+                case SPEED -> this.speed = value;
+                case SWIM_SPEED -> this.swimSpeed = value;
+                case HEALTH -> this.hpBonus = value;
+                case JUMPHEIGHT -> this.jumpHeight = value;
+                case FALLHEIGHT -> this.fallHeight = value;
+                case ATTACK_DAMAGE -> this.attackDamage = value;
+                case ATTACK_SPEED -> this.attackSpeed = value;
+                case ATTACK_KNOCKBACK -> this.attackKnockback = value;
+            }
+        }
+
+        public Builder setBonus(CombatArmorBonus bonus, float[] value) {
+            switchBonus(bonus, value);
+            return this;
+        }
+
+        public Builder setBonus(CombatArmorBonus bonus, float value){
+            float[] arr = new float[]{value, value, value, value};
+            switchBonus(bonus, arr);
+            return this;
+        }
+
+        //public Builder setSpeed
+        public CombatArmorMaterials build(){ return new CombatArmorMaterials(this);}
+    }
 }
