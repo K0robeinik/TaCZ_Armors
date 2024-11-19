@@ -93,7 +93,7 @@ public class ArmorMaterialInit {
             2,
             ZERO_ARRAY,
             ZERO_ARRAY,
-            1
+            .1F
     );
 
     public static final CombatArmorMaterials BERET = new CombatArmorMaterials(
