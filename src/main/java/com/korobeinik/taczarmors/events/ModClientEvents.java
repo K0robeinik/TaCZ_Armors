@@ -13,6 +13,7 @@ public class ModClientEvents {
     @SubscribeEvent
     //@OnlyIn(Dist.CLIENT)
     public static void onRegisterItemColor(RegisterColorHandlersEvent.Item event){
-        event.register(((stack, tint) -> tint > 0 ? 0xFFFFFF : ColorBottle.getDyeColor(stack)), ItemInit.COLOR_BOTTLE.get());
+        //event.register(((stack, tint) -> tint > 0 ? 0xFFFFFF : ColorBottle.getDyeColor(stack)), ItemInit.COLOR_BOTTLE.get());
+        event.register((ColorBottle::getItemColor), ItemInit.COLOR_BOTTLE.get());
     }
 }

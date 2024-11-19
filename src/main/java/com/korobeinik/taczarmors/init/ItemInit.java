@@ -3,6 +3,7 @@ package com.korobeinik.taczarmors.init;
 import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.content.ColorBottle;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
+import com.korobeinik.taczarmors.content.KevlarHorseArmorItem;
 import com.korobeinik.taczarmors.content.VariedCombatArmorItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
@@ -199,6 +200,10 @@ public class ItemInit {
                     ArmorMaterialInit.BERET,
                     ArmorItem.Type.HELMET
             )
+    ));
+
+    public static final RegistryObject<Item> KEVLAR_HORSE_ARMOR = addToTab(ITEMS.register("kevlar_horse_armor",
+            () -> new KevlarHorseArmorItem(11, "kevlar", new Item.Properties().stacksTo(1))
     ));
 
     //=================================================================================(Crafting Materials)=================================================================================
