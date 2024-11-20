@@ -5,12 +5,14 @@ import com.korobeinik.taczarmors.config.CommonConfig;
 import com.korobeinik.taczarmors.content.CombatArmorBonus;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
 import com.korobeinik.taczarmors.init.ItemInit;
+import com.korobeinik.taczarmors.util.MobEquipmentUtil;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
@@ -27,32 +29,26 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.@NotNull LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        Item item = entity.getItemBySlot(EquipmentSlot.FEET).getItem();
-        if (item instanceof CombatArmorItem combatArmorItem ) {
-            float jumpHeight = combatArmorItem.getMaterial().getBonusForEntity(CombatArmorBonus.JUMPHEIGHT, entity);
-            if (jumpHeight>0) entity.setDeltaMovement(entity.getDeltaMovement().add(0, jumpHeight, 0));
+        CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
+        if (item != null) {
+            float jumpHeight = item.getMaterial().getBonusForEntity(CombatArmorBonus.JUMPHEIGHT, entity);
+            if (jumpHeight>0) entity.addDeltaMovement(new Vec3(0, 0.15 * jumpHeight, 0));
         }
     }
     @SubscribeEvent
     public static void onLivingFall(@NotNull LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
-        Item item = entity.getItemBySlot(EquipmentSlot.FEET).getItem();
-        if (item instanceof CombatArmorItem combatArmorItem ) {
-            float fallHeight = combatArmorItem.getMaterial().getBonusForEntity(CombatArmorBonus.FALLHEIGHT, entity);
+        CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
+        if (item != null) {
+            float fallHeight = item.getMaterial().getBonusForEntity(CombatArmorBonus.FALLHEIGHT, entity);
             event.setDistance(event.getDistance()+fallHeight);
         }
     }
-//    @SubscribeEvent
-//    public static void onGunLOL(@NotNull GunFireEvent event){
-//        LivingEntity entity = event.getShooter();
-//        entity.sendSystemMessage(Component.literal("Gun Fired"));
-//    }
     @SubscribeEvent
     public static void onEntityTick(LivingEvent.LivingTickEvent event){
         LivingEntity entity = event.getEntity();
-        Item item = entity.getItemBySlot(EquipmentSlot.FEET).getItem();
+        CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
     }
-
     static Random rand = new Random();
     @SubscribeEvent
     public static void onEntitySpawnFinal(MobSpawnEvent.FinalizeSpawn event){

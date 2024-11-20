@@ -162,6 +162,12 @@ public class CombatArmorMaterials implements ArmorMaterial {
             return this;
         }
 
+        public Builder setBonus(CombatArmorBonus bonus, float v1, float v2, float v3, float v4){
+            float[] arr = new float[]{v1, v2, v3, v4};
+            switchBonus(bonus, arr);
+            return this;
+        }
+
         //public Builder setSpeed
         public CombatArmorMaterials build(){ return new CombatArmorMaterials(this);}
     }

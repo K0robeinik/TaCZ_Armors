@@ -38,6 +38,7 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             2.0F,
             .1F)
+            .setBonus(CombatArmorBonus.HEALTH, .25F)
             .build();
 
     public static final CombatArmorMaterials ASSASSIN = CombatArmorMaterials.builder(
@@ -49,7 +50,8 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             0,
             .1F)
-            .setBonus(CombatArmorBonus.JUMPHEIGHT, .2F)
+            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0,1)
+            .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-2)
             .build();
 
     public static final CombatArmorMaterials EXOSKELETON = CombatArmorMaterials.builder(
@@ -60,8 +62,9 @@ public class ArmorMaterialInit {
             SoundEvents.ARMOR_EQUIP_NETHERITE,
             Ingredient.of(Items.AMETHYST_SHARD),
             1)
-            .setBonus(CombatArmorBonus.SPEED, 1F)
-            .setBonus(CombatArmorBonus.JUMPHEIGHT, .16F)
+            .setBonus(CombatArmorBonus.SPEED, .25F)
+            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, 2)
+            .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-5)
             .build();
 
     public static final CombatArmorMaterials MODERN = CombatArmorMaterials.builder(
