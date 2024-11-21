@@ -43,7 +43,7 @@ public class ItemInit {
                     ArmorItem.Type.BOOTS
             )
     ));
-    private static final String[] ghillieVariants = {"Oak", "Spruce", "Birch", "Jungle", "Acacia", "Dark Oak"};
+    private static final String[] ghillieVariants = {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
 
     public static final RegistryObject<Item> GHILLIE_HELMET = addToTab(ITEMS.register("ghillie_helmet",
             () -> new VariedCombatArmorItem(
@@ -133,7 +133,7 @@ public class ItemInit {
             )
     ));
 
-    public static String[] exoVariants = {"Light", "Dark"};
+    public static String[] exoVariants = {"light", "dark"};
 
     public static final RegistryObject<Item> EXOSKELETON_HELMET = addToTab(ITEMS.register("exoskeleton_helmet",
             () -> new VariedCombatArmorItem(

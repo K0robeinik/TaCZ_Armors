@@ -17,26 +17,12 @@ public class ColorBottle extends Item implements DyeableLeatherItem {
         super(pProperties);
     }
 
-    public void setColor(ItemStack stack, int color) {
-        CompoundTag tag = stack.getTag();
-        if(tag==null){
-            tag = new CompoundTag();
-            stack.setTag(tag);
-        }
-        tag.putInt("color", color);
-        stack.setTag(tag);
-    }
-    public static int getDyeColor(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag!=null) {
-            if (tag.contains("color")) {
-                return tag.getInt("color");
-            }
-        }
-        return 0;
+    public int getColor(ItemStack pStack) {
+        CompoundTag compoundtag = pStack.getTagElement("display");
+        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : 0;
     }
 
-    public static int getItemColor(ItemStack stack, int tint){ return tint > 0 ? 0xFFFFFF : getDyeColor(stack);}
+    public static int getItemColor(ItemStack stack, int tint){ return tint > 0 ? 0xFFFFFF : ((ColorBottle)stack.getItem()).getColor(stack);}
 
 //    static ItemStack dyeArmor(ItemStack pStack, List<DyeItem> pDyes) {
 //        ItemStack resultStack = ItemStack.EMPTY;
@@ -95,7 +81,7 @@ public class ColorBottle extends Item implements DyeableLeatherItem {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
-        list.add(Component.literal("Color: "+ ColorUtil.intToHex(getDyeColor(stack))).withStyle(ChatFormatting.GRAY));
+        //list.add(Component.literal("Color: "+ ColorUtil.intToHex(getColor(stack))).withStyle(ChatFormatting.GRAY));
         //list.add(Component.literal("Color: "+ ColorUtil.hexToInt(ColorUtil.intToHex(getDyeColor(stack)))).withStyle(ChatFormatting.GRAY)); for reverse function testing
         super.appendHoverText(stack, pLevel, list, pIsAdvanced);
     }

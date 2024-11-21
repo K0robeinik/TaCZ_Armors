@@ -4,11 +4,13 @@ import com.korobeinik.taczarmors.client.render.VariedCombatArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -34,6 +36,8 @@ public class VariedCombatArmorItem extends CombatArmorItem{
     public String[] getVariant() {
         return variant;
     }
+
+    public MutableComponent getCurrentVariantComponent(ItemStack itemStack) {return Component.translatable("item.taczarmors.variants." + suitName + "." + getVariant()[getCurrentVariant(itemStack)]);}
 
     public byte switchVariant(ItemStack itemStack) {
         CompoundTag tags = itemStack.getTag();
@@ -72,7 +76,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
             nbtData.putByte("taVariant", switchVariant(itemStack));
             itemStack.setTag(nbtData);
             if (!pLevel.isClientSide()) {
-                pPlayer.sendSystemMessage(Component.literal("Switched camo to: " + getVariant()[getCurrentVariant(itemStack)]));
+                pPlayer.sendSystemMessage(Component.translatable("message.taczarmors.switch_bonus").append(getCurrentVariantComponent(itemStack)));
             }
             return InteractionResultHolder.success(itemStack);
         }
@@ -81,7 +85,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
-        list.add(Component.literal("The Variant is: " + getVariant()[getCurrentVariant(pStack)]));
+        list.add(Component.translatable("item.tooltip.taczarmors.variant").append(getCurrentVariantComponent(pStack)));
         super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
     }
 

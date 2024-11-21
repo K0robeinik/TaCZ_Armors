@@ -44,7 +44,7 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
             UUID.fromString("945DB27C-C624-495F-8C9F-6020A9A58B6B")
     };
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-    private final String suitName;
+    protected final String suitName;
     private final CombatArmorMaterials combatArmorMaterial;
 
     public CombatArmorItem(CombatArmorMaterials armorMaterial, Type type) {
@@ -58,12 +58,7 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIERS[type.ordinal()];
         builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.getType()), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));/*
-        builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Health bonus", armorMaterial.getHpBonus(this.getType()), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed", armorMaterial.getSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getSwimSpeed(this.getType()), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Step Height", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));
-        builder.put(ModAttributes.BULLET_RESISTANCE.get(), new AttributeModifier(uuid, "Bullet Resistance", armorMaterial.getStepHeight(this.getType()), AttributeModifier.Operation.ADDITION));*/
+        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));
         if (armorMaterial.getKnockbackResistance() > 0) {
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
         }
@@ -83,17 +78,17 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot p_40390_) {
         return p_40390_ == this.type.getSlot() ? this.defModifiers : super.getDefaultAttributeModifiers(p_40390_);
     }
-
+//item.color
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
         if(Screen.hasShiftDown()){
-            list.add(Component.literal("Bonuses:"));
+            list.add(Component.translatable("item.tooltip.taczarmors.bonuses"));
             for (CombatArmorBonus bonus: CombatArmorBonus.values()) {
                 appendBonus(bonus, list);
             }
         }
         else {
-            list.add(Component.literal("Bonuses: Press [Shift]"));
+            list.add(Component.translatable("item.tooltip.taczarmors.bonuses_press_shift"));
         }
         super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
     }
