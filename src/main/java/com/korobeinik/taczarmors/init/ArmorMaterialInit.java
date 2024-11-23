@@ -84,7 +84,16 @@ public class ArmorMaterialInit {
 
     public static final CombatArmorMaterials BERET = CombatArmorMaterials.builder(
             "beret",
+            25,
+            new int[] {5, 0, 0, 0},
             30,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            Ingredient.of(Items.AMETHYST_SHARD),
+            0)
+            .build();
+    public static final CombatArmorMaterials GENERAL = CombatArmorMaterials.builder(
+            "general",
+            25,
             new int[] {5, 0, 0, 0},
             30,
             SoundEvents.ARMOR_EQUIP_LEATHER,

@@ -202,6 +202,13 @@ public class ItemInit {
             )
     ));
 
+    public static final RegistryObject<Item> GENERAL = addToTab(ITEMS.register("general_cap",
+            () -> new CombatArmorItem(
+                    ArmorMaterialInit.GENERAL,
+                    ArmorItem.Type.HELMET
+            )
+    ));
+
     //=================================================================================(Crafting Materials)=================================================================================
     private static RegistryObject<Item> registerMaterial(String name) {
         return addToTab(ITEMS.register(name, () -> new Item(new Item.Properties())), MATERIAL_TAB_ITEMS);
