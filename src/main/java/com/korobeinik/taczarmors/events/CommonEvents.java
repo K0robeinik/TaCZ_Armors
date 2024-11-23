@@ -1,36 +1,32 @@
 package com.korobeinik.taczarmors.events;
 
 import com.korobeinik.taczarmors.TaczArmors;
-import com.korobeinik.taczarmors.config.CommonConfig;
 import com.korobeinik.taczarmors.content.CombatArmorBonus;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
-import com.korobeinik.taczarmors.init.ItemInit;
 import com.korobeinik.taczarmors.util.MobEquipmentUtil;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
 import java.util.UUID;
 
 
 @Mod.EventBusSubscriber(modid = TaczArmors.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonEvents {
     private static final UUID SPEED_MODIFIER = UUID.fromString("690292F2-48D5-9434-A29F-7773AF7DF28D");
+    private static final UUID MAX_HEALTH_MODIFIER = UUID.fromString("700292F2-48D5-9434-A29F-7773AF7DF28D");
+    private static final UUID ATTACK_DAMAGE_MODIFIER = UUID.fromString("710292F2-48D5-9434-A29F-7773AF7DF28D");
+    private static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("720292F2-48D5-9434-A29F-7773AF7DF28D");
+    private static final UUID ATTACK_KNOCKBACK_MODIFIER = UUID.fromString("730292F2-48D5-9434-A29F-7773AF7DF28D");
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.@NotNull LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
@@ -49,6 +45,22 @@ public class CommonEvents {
             event.setDistance(event.getDistance()+fallHeight);
         }
     }
+
+    protected static void setModifier(LivingEntity entity, Attribute attribute, UUID uuid, CombatArmorBonus bonus, String name, AttributeModifier.Operation operation){
+        if (entity.getAttributes().hasAttribute(attribute)) {
+            AttributeInstance attributeInstance = entity.getAttribute(attribute);
+            assert attributeInstance != null;
+            CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
+            if (attributeInstance.getModifier(uuid) != null) {
+                attributeInstance.removeModifier(uuid);
+            }
+            if (item != null && attributeInstance.getModifier(uuid) == null){
+                float x = item.getMaterial().getBonusForEntity(bonus, entity);
+                if (x>0) attributeInstance.addTransientModifier(new AttributeModifier(uuid, name, x, operation));
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onEntityTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
@@ -59,26 +71,16 @@ public class CommonEvents {
             if (attribute.getModifier(SPEED_MODIFIER) != null) {
                 attribute.removeModifier(SPEED_MODIFIER);
             }
-            if (item != null){
+            if (item != null && attribute.getModifier(SPEED_MODIFIER) == null){
                 float speed = item.getMaterial().getBonusForEntity(CombatArmorBonus.SPEED, entity);
                 speed = entity.isSprinting() ? speed*2 : speed;
                 if (speed>0) attribute.addTransientModifier(new AttributeModifier(SPEED_MODIFIER, "Bonus Speed", speed, AttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
-    }
-    static Random rand = new Random();
-    @SubscribeEvent
-    public static void onEntitySpawnFinal(MobSpawnEvent.FinalizeSpawn event) {
-        LivingEntity entity = event.getEntity();
-        Difficulty difficulty = event.getDifficulty().getDifficulty();
-        int chance = difficulty == Difficulty.HARD ? 100 : CommonConfig.SPAWN_WITH_ARMOR_CHANCE.get();
-        if(chance != 0 && chance > rand.nextInt(100)) {
-            if (entity instanceof Zombie || entity instanceof Skeleton) {
-                entity.setItemSlot(EquipmentSlot.HEAD, ItemInit.MODERN_HELMET.get().getDefaultInstance());
-                entity.setItemSlot(EquipmentSlot.CHEST, ItemInit.MODERN_CHESTPLATE.get().getDefaultInstance());
-                entity.setItemSlot(EquipmentSlot.LEGS, ItemInit.MODERN_LEGGINGS.get().getDefaultInstance());
-                entity.setItemSlot(EquipmentSlot.FEET, ItemInit.MODERN_BOOTS.get().getDefaultInstance());
-            }
-        }
+        //setModifier(entity, Attributes.MOVEMENT_SPEED, SPEED_MODIFIER, CombatArmorBonus.SPEED, "Bonus Speed", AttributeModifier.Operation.MULTIPLY_TOTAL);
+        setModifier(entity, Attributes.MAX_HEALTH, MAX_HEALTH_MODIFIER, CombatArmorBonus.HEALTH, "Bonus Health", AttributeModifier.Operation.ADDITION);
+        setModifier(entity, Attributes.ATTACK_DAMAGE, ATTACK_DAMAGE_MODIFIER, CombatArmorBonus.ATTACK_DAMAGE, "Bonus Attack Damage", AttributeModifier.Operation.ADDITION);
+        setModifier(entity, Attributes.ATTACK_SPEED, ATTACK_SPEED_MODIFIER, CombatArmorBonus.ATTACK_SPEED, "Bonus Attack Speed", AttributeModifier.Operation.MULTIPLY_TOTAL);
+        setModifier(entity, Attributes.ATTACK_KNOCKBACK, ATTACK_KNOCKBACK_MODIFIER, CombatArmorBonus.ATTACK_KNOCKBACK, "Bonus Attack Knockback", AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 }

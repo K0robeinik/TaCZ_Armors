@@ -50,6 +50,7 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             0,
             .1F)
+            .setBonus(CombatArmorBonus.SPEED, .2F)
             .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0,1)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-2)
             .build();
@@ -63,6 +64,9 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             1)
             .setBonus(CombatArmorBonus.SPEED, .25F)
+            .setBonus(CombatArmorBonus.ATTACK_DAMAGE, 0, 9, 0, 0)
+            .setBonus(CombatArmorBonus.ATTACK_SPEED, 0, 2, 0, 0)
+            .setBonus(CombatArmorBonus.ATTACK_KNOCKBACK, 0, 1, 0, 0)
             .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, 2)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-5)
             .build();

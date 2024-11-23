@@ -1,6 +1,5 @@
 package com.korobeinik.taczarmors.util;
 
-import com.korobeinik.taczarmors.content.CombatArmorBonus;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
 import com.korobeinik.taczarmors.init.ItemInit;
 import net.minecraft.world.entity.LivingEntity;
