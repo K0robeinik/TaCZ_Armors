@@ -133,7 +133,7 @@ public class ItemInit {
             )
     ));
 
-    public static String[] exoVariants = {"light", "dark"};
+    private static final String[] exoVariants = {"light", "dark"};
 
     public static final RegistryObject<Item> EXOSKELETON_HELMET = addToTab(ITEMS.register("exoskeleton_helmet",
             () -> new VariedCombatArmorItem(
