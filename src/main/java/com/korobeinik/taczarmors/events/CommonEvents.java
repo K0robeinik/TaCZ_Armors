@@ -9,6 +9,9 @@ import com.korobeinik.taczarmors.util.MobEquipmentUtil;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.Item;
@@ -22,10 +25,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
+import java.util.UUID;
 
 
 @Mod.EventBusSubscriber(modid = TaczArmors.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonEvents {
+    private static final UUID SPEED_MODIFIER = UUID.fromString("690292F2-48D5-9434-A29F-7773AF7DF28D");
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.@NotNull LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
@@ -45,13 +50,25 @@ public class CommonEvents {
         }
     }
     @SubscribeEvent
-    public static void onEntityTick(LivingEvent.LivingTickEvent event){
+    public static void onEntityTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
-        CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
+        if (entity.getAttributes().hasAttribute(Attributes.MOVEMENT_SPEED)) {
+            AttributeInstance attribute = entity.getAttribute(Attributes.MOVEMENT_SPEED);
+            assert attribute != null;
+            CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
+            if (attribute.getModifier(SPEED_MODIFIER) != null) {
+                attribute.removeModifier(SPEED_MODIFIER);
+            }
+            if (item != null){
+                float speed = item.getMaterial().getBonusForEntity(CombatArmorBonus.SPEED, entity);
+                speed = entity.isSprinting() ? speed*2 : speed;
+                if (speed>0) attribute.addTransientModifier(new AttributeModifier(SPEED_MODIFIER, "Bonus Speed", speed, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            }
+        }
     }
     static Random rand = new Random();
     @SubscribeEvent
-    public static void onEntitySpawnFinal(MobSpawnEvent.FinalizeSpawn event){
+    public static void onEntitySpawnFinal(MobSpawnEvent.FinalizeSpawn event) {
         LivingEntity entity = event.getEntity();
         Difficulty difficulty = event.getDifficulty().getDifficulty();
         int chance = difficulty == Difficulty.HARD ? 100 : CommonConfig.SPAWN_WITH_ARMOR_CHANCE.get();
