@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -27,10 +26,6 @@ public class VariedCombatArmorItem extends CombatArmorItem{
     private final String[] variant;
     public VariedCombatArmorItem(CombatArmorMaterials armorMaterial, Type type, String[] variant) {
         super(armorMaterial, type);
-        this.variant = variant;
-    }
-    public VariedCombatArmorItem(String suitName, CombatArmorMaterials armorMaterial, Type type, String[] variant) {
-        super(suitName, armorMaterial, type);
         this.variant = variant;
     }
 

@@ -1,16 +1,7 @@
 package com.korobeinik.taczarmors.content;
 
-import com.korobeinik.taczarmors.util.ColorUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class ColorBottle extends Item implements DyeableLeatherItem {
     public ColorBottle(Properties pProperties) {
