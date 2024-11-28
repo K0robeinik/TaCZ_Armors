@@ -78,11 +78,4 @@ public class ColorBottle extends Item implements DyeableLeatherItem {
 //        }*/
 //        return resultStack;
 //    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
-        //list.add(Component.literal("Color: "+ ColorUtil.intToHex(getColor(stack))).withStyle(ChatFormatting.GRAY));
-        //list.add(Component.literal("Color: "+ ColorUtil.hexToInt(ColorUtil.intToHex(getDyeColor(stack)))).withStyle(ChatFormatting.GRAY)); for reverse function testing
-        super.appendHoverText(stack, pLevel, list, pIsAdvanced);
-    }
 }

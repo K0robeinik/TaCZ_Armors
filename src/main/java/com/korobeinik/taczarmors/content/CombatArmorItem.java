@@ -81,6 +81,7 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
 //item.color
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
+        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
         if(Screen.hasShiftDown()){
             list.add(Component.translatable("item.tooltip.taczarmors.bonuses").withStyle(ChatFormatting.GRAY));
             for (CombatArmorBonus bonus: CombatArmorBonus.values()) {
@@ -90,7 +91,6 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         else {
             list.add(Component.translatable("item.tooltip.taczarmors.bonuses_press_shift").withStyle(ChatFormatting.GRAY));
         }
-        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
     }
 
     private void appendBonus(CombatArmorBonus bonus, List<Component> list){
