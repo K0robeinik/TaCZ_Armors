@@ -1,10 +1,12 @@
 package com.korobeinik.taczarmors.events;
 
 import com.korobeinik.taczarmors.TaczArmors;
+import com.korobeinik.taczarmors.content.CombatArmorAbility;
 import com.korobeinik.taczarmors.content.CombatArmorBonus;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
+import com.korobeinik.taczarmors.content.CombatArmorMaterials;
 import com.korobeinik.taczarmors.util.MobEquipmentUtil;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -32,8 +34,16 @@ public class CommonEvents {
         LivingEntity entity = event.getEntity();
         CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
         if (item != null) {
-            float jumpHeight = item.getMaterial().getBonusForEntity(CombatArmorBonus.JUMPHEIGHT, entity);
-            if (jumpHeight>0) entity.addDeltaMovement(new Vec3(0, 0.15 * jumpHeight, 0));
+            CombatArmorMaterials material = item.getMaterial();
+            float jumpHeight = material.getBonusForEntity(CombatArmorBonus.JUMPHEIGHT, entity);
+            if (jumpHeight>0) {
+                entity.addDeltaMovement(new Vec3(0, 0.15 * jumpHeight, 0));
+                if(material.hasAbility(CombatArmorAbility.LONG_JUMP, entity) && entity.isSprinting()) {
+                    float x = 1;
+                    float f = entity.getYHeadRot() * ((float)Math.PI / 180F);
+                    entity.addDeltaMovement(new Vec3((-Mth.sin(f) * x), 0, (Mth.cos(f) * x)));
+                }
+            }
         }
     }
     @SubscribeEvent

@@ -9,6 +9,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class CombatArmorMaterials implements ArmorMaterial {
     protected static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
     private final String name;
@@ -27,6 +29,7 @@ public class CombatArmorMaterials implements ArmorMaterial {
     private final float[] attackDamage;
     private final float[] attackSpeed;
     private final float[] attackKnockback;
+    private final ArrayList<CombatArmorAbility> abilityList;
 
     public CombatArmorMaterials(Builder builder) {
         this.name = builder.name;
@@ -45,12 +48,17 @@ public class CombatArmorMaterials implements ArmorMaterial {
         this.attackDamage = builder.attackDamage;
         this.attackSpeed = builder.attackSpeed;
         this.attackKnockback = builder.attackKnockback;
+        this.abilityList = builder.abilityList;
     }
 
 
     public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness) {
         return builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, 0.0F);
     }
+
+    /*public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist) {
+        return builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, knockbackResist, null);
+    }*/
 
     public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist) {
         return new Builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, knockbackResist);
@@ -61,8 +69,6 @@ public class CombatArmorMaterials implements ArmorMaterial {
 
     @Override
     public int getDefenseForType(ArmorItem.Type type) { return this.damageReduction[type.ordinal()]; }
-
-    //public int getDefenseForType(ArmorItem.Type type) { return MAX_DAMAGE_ARRAY [type.ordinal()]; }
 
     @Override
     public int getEnchantmentValue() { return this.encantability; }
@@ -107,6 +113,17 @@ public class CombatArmorMaterials implements ArmorMaterial {
         return sum;
     }
 
+    public boolean hasAbility(CombatArmorAbility ability, LivingEntity entity){
+        if (abilityList == null) return false;
+        for (ArmorItem.Type type: ArmorItem.Type.values()) {
+            Item item = entity.getItemBySlot(type.getSlot()).getItem();
+            if(item instanceof CombatArmorItem && abilityList.contains(ability)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static class Builder {
         private final String name;
         private final int durability;
@@ -116,7 +133,6 @@ public class CombatArmorMaterials implements ArmorMaterial {
         private final Ingredient ingredient;
         private final float toughness;
         private final float knockbackResist;
-
         private final float[] ZERO_ARRAY = new float[]{0, 0, 0, 0};
         private float[] speed = ZERO_ARRAY;
         private float[] swimSpeed = ZERO_ARRAY;
@@ -126,6 +142,7 @@ public class CombatArmorMaterials implements ArmorMaterial {
         private float[] attackDamage = ZERO_ARRAY;
         private float[] attackSpeed = ZERO_ARRAY;
         private float[] attackKnockback = ZERO_ARRAY;
+        private ArrayList<CombatArmorAbility> abilityList = new ArrayList<>();
 
         private Builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist){
             this.name = name;
@@ -136,6 +153,7 @@ public class CombatArmorMaterials implements ArmorMaterial {
             this.ingredient = ingredient;
             this.toughness = toughness;
             this.knockbackResist = knockbackResist;
+            //this.abilityList = abilityList;
         }
 
         private void switchBonus(CombatArmorBonus bonus, float[] value) {
@@ -165,6 +183,11 @@ public class CombatArmorMaterials implements ArmorMaterial {
         public Builder setBonus(CombatArmorBonus bonus, float v1, float v2, float v3, float v4){
             float[] arr = new float[]{v1, v2, v3, v4};
             switchBonus(bonus, arr);
+            return this;
+        }
+
+        public Builder addAbility(CombatArmorAbility ability){
+            abilityList.add(ability);
             return this;
         }
 

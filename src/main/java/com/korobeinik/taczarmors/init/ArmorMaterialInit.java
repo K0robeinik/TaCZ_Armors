@@ -1,5 +1,6 @@
 package com.korobeinik.taczarmors.init;
 
+import com.korobeinik.taczarmors.content.CombatArmorAbility;
 import com.korobeinik.taczarmors.content.CombatArmorBonus;
 import com.korobeinik.taczarmors.content.CombatArmorMaterials;
 import net.minecraft.sounds.SoundEvents;
@@ -67,8 +68,9 @@ public class ArmorMaterialInit {
             .setBonus(CombatArmorBonus.ATTACK_DAMAGE, 0, 9, 0, 0)
             .setBonus(CombatArmorBonus.ATTACK_SPEED, 0, 2, 0, 0)
             .setBonus(CombatArmorBonus.ATTACK_KNOCKBACK, 0, 1, 0, 0)
-            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, 2)
+            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, 1)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-5)
+            .addAbility(CombatArmorAbility.LONG_JUMP)
             .build();
 
     public static final CombatArmorMaterials MODERN = CombatArmorMaterials.builder(
