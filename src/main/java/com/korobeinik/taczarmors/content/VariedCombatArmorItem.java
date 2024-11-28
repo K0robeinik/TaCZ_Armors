@@ -33,7 +33,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
         return variant;
     }
 
-    public MutableComponent getCurrentVariantComponent(ItemStack itemStack) {return Component.translatable("item.taczarmors.variants." + suitName + "." + getVariant()[getCurrentVariant(itemStack)]);}
+    public MutableComponent getCurrentVariantComponent(ItemStack itemStack) {return Component.translatable("item.taczarmors.variants." + getVariant()[getCurrentVariant(itemStack)]);}
 
     public byte switchVariant(ItemStack itemStack){
         CompoundTag tags = itemStack.getOrCreateTagElement("display");

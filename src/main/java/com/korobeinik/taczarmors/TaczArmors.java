@@ -7,8 +7,15 @@ import com.korobeinik.taczarmors.content.KevlarHorseArmorItem;
 import com.korobeinik.taczarmors.init.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -46,7 +53,20 @@ public class TaczArmors {
         public static void onRegisterItemColor(RegisterColorHandlersEvent.Item event){
             event.register(ColorBottle::getItemColor, ItemInit.COLOR_BOTTLE.get());
             event.register(KevlarHorseArmorItem::getItemColor, ItemInit.KEVLAR_HORSE_ARMOR.get());
-            event.register(DyeableCombatArmorItem::getItemColor, ItemInit.MODERN_HELMET.get(), ItemInit.MODERN_CHESTPLATE.get(), ItemInit.MODERN_LEGGINGS.get(), ItemInit.MODERN_BOOTS.get());
+            event.register(DyeableCombatArmorItem::getItemColor, ItemInit.MODERN_HELMET.get(), ItemInit.MODERN_CHESTPLATE.get(), ItemInit.MODERN_LEGGINGS.get(), ItemInit.MODERN_BOOTS.get(), ItemInit.BERET.get(), ItemInit.GENERAL.get());
+        }
+
+        @SubscribeEvent
+        public static void addColorsTab(BuildCreativeModeTabContentsEvent event){
+            if (event.getTab() == CreativeTabInit.COLOR_TAB.get()){
+                ItemStack stack = ItemInit.COLOR_BOTTLE.get().getDefaultInstance();
+                stack.getOrCreateTagElement("display").putInt("color", 0xFF0000);
+                event.accept(stack);
+//                for (DyeColor color : DyeColor.values()) {
+//                    stack.getOrCreateTagElement("display").putInt("color", color.getFireworkColor());
+//                    event.accept(stack);
+//                }
+            }
         }
     }
 }

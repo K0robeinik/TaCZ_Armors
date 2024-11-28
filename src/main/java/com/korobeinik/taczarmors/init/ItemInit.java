@@ -199,16 +199,18 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> BERET = addToTab(ITEMS.register("beret",
-            () -> new CombatArmorItem(
+            () -> new DyeableCombatArmorItem(
                     ArmorMaterialInit.BERET,
-                    ArmorItem.Type.HELMET
+                    ArmorItem.Type.HELMET,
+                    camoVariants
             )
     ));
 
     public static final RegistryObject<Item> GENERAL = addToTab(ITEMS.register("general_cap",
-            () -> new CombatArmorItem(
+            () -> new DyeableCombatArmorItem(
                     ArmorMaterialInit.GENERAL,
-                    ArmorItem.Type.HELMET
+                    ArmorItem.Type.HELMET,
+                    camoVariants
             )
     ));
 

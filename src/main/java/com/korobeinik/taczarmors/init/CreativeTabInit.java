@@ -5,6 +5,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -31,6 +33,13 @@ public class CreativeTabInit {
                     .title(Component.translatable("itemGroup.taczMaterials"))
                     .icon(ItemInit.STEEL_INGOT.get()::getDefaultInstance)
                     .displayItems((displayParameters, output) -> MATERIAL_TAB_ITEMS.forEach(itemLike -> output.accept(itemLike.get())))
+                    .build()
+    );
+
+    public static final RegistryObject<CreativeModeTab> COLOR_TAB = TABS.register("color_tab",
+            () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.taczColors"))
+                    .icon(ItemInit.COLOR_BOTTLE.get()::getDefaultInstance)
                     .build()
     );
 
