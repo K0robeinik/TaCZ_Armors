@@ -1,10 +1,7 @@
 package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.TaczArmors;
-import com.korobeinik.taczarmors.content.ColorBottle;
-import com.korobeinik.taczarmors.content.CombatArmorItem;
-import com.korobeinik.taczarmors.content.KevlarHorseArmorItem;
-import com.korobeinik.taczarmors.content.VariedCombatArmorItem;
+import com.korobeinik.taczarmors.content.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -167,31 +164,37 @@ public class ItemInit {
             )
     ));
 
+    private static final String[] camoVariants = {"plain", "pixel", "flecktarn"};
+
     public static final RegistryObject<Item> MODERN_HELMET = addToTab(ITEMS.register("modern_helmet",
-            () -> new CombatArmorItem(
+            () -> new DyeableCombatArmorItem(
                     ArmorMaterialInit.MODERN,
-                    ArmorItem.Type.HELMET
+                    ArmorItem.Type.HELMET,
+                    camoVariants
             )
     ));
 
     public static final RegistryObject<Item> MODERN_CHESTPLATE = addToTab(ITEMS.register("modern_chestplate",
-            () -> new CombatArmorItem(
+            () -> new DyeableCombatArmorItem(
                     ArmorMaterialInit.MODERN,
-                    ArmorItem.Type.CHESTPLATE
+                    ArmorItem.Type.CHESTPLATE,
+                    camoVariants
             )
     ));
 
     public static final RegistryObject<Item> MODERN_LEGGINGS = addToTab(ITEMS.register("modern_leggings",
-            () -> new CombatArmorItem(
+            () -> new DyeableCombatArmorItem(
                     ArmorMaterialInit.MODERN,
-                    ArmorItem.Type.LEGGINGS
+                    ArmorItem.Type.LEGGINGS,
+                    camoVariants
             )
     ));
 
     public static final RegistryObject<Item> MODERN_BOOTS = addToTab(ITEMS.register("modern_boots",
-            () -> new CombatArmorItem(
+            () -> new DyeableCombatArmorItem(
                     ArmorMaterialInit.MODERN,
-                    ArmorItem.Type.BOOTS
+                    ArmorItem.Type.BOOTS,
+                    camoVariants
             )
     ));
 

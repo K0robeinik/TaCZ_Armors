@@ -2,6 +2,7 @@ package com.korobeinik.taczarmors;
 
 import com.korobeinik.taczarmors.config.ServerConfig;
 import com.korobeinik.taczarmors.content.ColorBottle;
+import com.korobeinik.taczarmors.content.DyeableCombatArmorItem;
 import com.korobeinik.taczarmors.content.KevlarHorseArmorItem;
 import com.korobeinik.taczarmors.init.*;
 import com.mojang.logging.LogUtils;
@@ -45,6 +46,7 @@ public class TaczArmors {
         public static void onRegisterItemColor(RegisterColorHandlersEvent.Item event){
             event.register(ColorBottle::getItemColor, ItemInit.COLOR_BOTTLE.get());
             event.register(KevlarHorseArmorItem::getItemColor, ItemInit.KEVLAR_HORSE_ARMOR.get());
+            event.register(DyeableCombatArmorItem::getItemColor, ItemInit.MODERN_HELMET.get(), ItemInit.MODERN_CHESTPLATE.get(), ItemInit.MODERN_LEGGINGS.get(), ItemInit.MODERN_BOOTS.get());
         }
     }
 }

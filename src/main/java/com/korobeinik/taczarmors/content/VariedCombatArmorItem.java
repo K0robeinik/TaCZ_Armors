@@ -1,6 +1,7 @@
 package com.korobeinik.taczarmors.content;
 
-import com.korobeinik.taczarmors.client.render.VariedCombatArmorRenderer;
+import com.korobeinik.taczarmors.client.render.CombatArmorRenderer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -39,12 +40,26 @@ public class VariedCombatArmorItem extends CombatArmorItem{
 
     public MutableComponent getCurrentVariantComponent(ItemStack itemStack) {return Component.translatable("item.taczarmors.variants." + suitName + "." + getVariant()[getCurrentVariant(itemStack)]);}
 
-    public byte switchVariant(ItemStack itemStack) {
-        CompoundTag tags = itemStack.getTag();
-        if (tags==null){
-            tags = new CompoundTag();
-            itemStack.setTag(tags);
-        }
+//    public byte switchVariant(ItemStack itemStack) {
+//        CompoundTag tags = itemStack.getTag();
+//        if (tags==null){
+//            tags = new CompoundTag();
+//            itemStack.setTag(tags);
+//        }
+//        byte tv = 0;
+//        if (tags.contains("taVariant")) {
+//            tv = tags.getByte("taVariant");
+//        }
+//        VariedCombatArmorItem item = (VariedCombatArmorItem) itemStack.getItem();
+//        tv++;
+//        tv = (byte) (tv%item.getVariant().length);
+//        tags.putByte("taVariant", tv);
+//        itemStack.setTag(tags);
+//        return tv;
+//    }
+
+    public byte switchVariant(ItemStack itemStack){
+        CompoundTag tags = itemStack.getOrCreateTagElement("display");
         byte tv = 0;
         if (tags.contains("taVariant")) {
             tv = tags.getByte("taVariant");
@@ -52,19 +67,17 @@ public class VariedCombatArmorItem extends CombatArmorItem{
         VariedCombatArmorItem item = (VariedCombatArmorItem) itemStack.getItem();
         tv++;
         tv = (byte) (tv%item.getVariant().length);
-        tags.putByte("taVariant", tv);
-        itemStack.setTag(tags);
+        setVariant(itemStack, tv);
         return tv;
     }
 
+    public void setVariant(ItemStack itemStack, byte v){
+        itemStack.getOrCreateTagElement("display").putByte("taVariant", v);
+    }
+
     public byte getCurrentVariant(ItemStack itemStack) {
-        CompoundTag cur = itemStack.getTag();
-        if (cur != null) {
-            if (cur.contains("taVariant")) {
-                return cur.getByte("taVariant");
-            }
-        }
-        return (byte) 0;
+        CompoundTag cur = itemStack.getTagElement("display");
+        return (cur != null && cur.contains("taVariant")) ? cur.getByte("taVariant") : (byte) 0;
     }
 
     @Override
@@ -72,9 +85,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
         boolean shiftPressed = pPlayer.isShiftKeyDown();
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if(shiftPressed) {
-            CompoundTag nbtData = new CompoundTag();
-            nbtData.putByte("taVariant", switchVariant(itemStack));
-            itemStack.setTag(nbtData);
+            setVariant(itemStack, switchVariant(itemStack));
             if (!pLevel.isClientSide()) {
                 pPlayer.sendSystemMessage(Component.translatable("message.taczarmors.switch_bonus").append(getCurrentVariantComponent(itemStack)));
             }
@@ -85,7 +96,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
-        list.add(Component.translatable("item.tooltip.taczarmors.variant").append(getCurrentVariantComponent(pStack)));
+        list.add(Component.translatable("item.tooltip.taczarmors.variant").append(getCurrentVariantComponent(pStack)).withStyle(ChatFormatting.GRAY));
         super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
     }
 
@@ -98,7 +109,7 @@ public class VariedCombatArmorItem extends CombatArmorItem{
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 VariedCombatArmorItem item = (VariedCombatArmorItem) itemStack.getItem();
                 if (this.renderer == null) {
-                    this.renderer = new VariedCombatArmorRenderer(item.getSuitName());
+                    this.renderer = new CombatArmorRenderer(item.getSuitName());
                 }
 
                 // This prepares our GeoArmorRenderer for the current render frame.

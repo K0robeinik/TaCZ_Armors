@@ -7,15 +7,18 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.DyeableLeatherItem;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.object.Color;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoArmorRenderer;
+import software.bernie.geckolib.renderer.DyeableGeoArmorRenderer;
 import software.bernie.geckolib.util.RenderUtils;
 
-public class NewArmorRenderer <T extends CombatArmorItem> extends GeoArmorRenderer<T> {
+public class NewArmorRenderer <T extends CombatArmorItem> extends DyeableGeoArmorRenderer<T> {
     protected BakedGeoModel lastModel = null;
     protected GeoBone legs = null;
     public NewArmorRenderer(GeoModel<T> model) {
@@ -38,7 +41,18 @@ public class NewArmorRenderer <T extends CombatArmorItem> extends GeoArmorRender
         if (!(this.currentEntity instanceof GeoAnimatable)) {
             this.applyBoneVisibilityBySlot(this.currentSlot);
         }
+        if (!isReRender) {
+            this.checkBoneDyeCache(animatable, model, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+        }
+    }
 
+    @Override
+    protected boolean isBoneDyeable(GeoBone geoBone) { return true; }
+
+    @Override
+    protected @NotNull Color getColorForBone(GeoBone geoBone) {
+        int color = currentStack.getItem() instanceof DyeableLeatherItem ? ((DyeableLeatherItem) currentStack.getItem()).getColor(currentStack) : 0xFFFFFF;
+        return Color.ofOpaque(color);
     }
 
     protected void grabRelevantBones(BakedGeoModel bakedModel) {

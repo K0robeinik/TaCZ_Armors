@@ -2,6 +2,7 @@ package com.korobeinik.taczarmors.client.render;
 
 import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.content.CombatArmorItem;
+import com.korobeinik.taczarmors.content.VariedCombatArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
@@ -9,6 +10,7 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -34,6 +36,9 @@ public class CombatArmorRenderer extends NewArmorRenderer<CombatArmorItem> {
 
     @Override
     public ResourceLocation getTextureLocation(CombatArmorItem anime) {
+        if (anime instanceof VariedCombatArmorItem){
+            return new ResourceLocation(TaczArmors.MODID, "textures/item/armor/" + anime.getSuitName() + "_armor_" + ((VariedCombatArmorItem)anime).getCurrentVariant(currentStack) + ".png");
+        }
         return super.getTextureLocation(anime);
     }
 }

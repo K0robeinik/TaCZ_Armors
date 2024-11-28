@@ -82,13 +82,13 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
         if(Screen.hasShiftDown()){
-            list.add(Component.translatable("item.tooltip.taczarmors.bonuses"));
+            list.add(Component.translatable("item.tooltip.taczarmors.bonuses").withStyle(ChatFormatting.GRAY));
             for (CombatArmorBonus bonus: CombatArmorBonus.values()) {
                 appendBonus(bonus, list);
             }
         }
         else {
-            list.add(Component.translatable("item.tooltip.taczarmors.bonuses_press_shift"));
+            list.add(Component.translatable("item.tooltip.taczarmors.bonuses_press_shift").withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
     }
