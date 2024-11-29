@@ -44,6 +44,7 @@
   "item.taczarmors.variants.plain": "Plain",
   "item.taczarmors.variants.pixel": "Pixel",
   "item.taczarmors.variants.flecktarn": "Flecktarn",
+  "item.taczarmors.variants.marpat": "MARPAT",
   "item.tooltip.taczarmors.bonus.speed": "Speed: %f",
   "itemGroup.taczArmors": "TaCZ Armors",
   "itemGroup.taczMaterials": "TaCZ Armors - Materials",

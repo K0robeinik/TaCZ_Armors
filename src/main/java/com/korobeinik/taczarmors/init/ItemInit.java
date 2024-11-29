@@ -164,7 +164,7 @@ public class ItemInit {
             )
     ));
 
-    private static final String[] camoVariants = {"plain", "pixel", "flecktarn"};
+    private static final String[] camoVariants = {"plain", "pixel", "flecktarn", "marpat"};
 
     public static final RegistryObject<Item> MODERN_HELMET = addToTab(ITEMS.register("modern_helmet",
             () -> new DyeableCombatArmorItem(
