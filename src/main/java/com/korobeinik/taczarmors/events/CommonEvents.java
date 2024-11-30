@@ -1,10 +1,10 @@
 package com.korobeinik.taczarmors.events;
 
 import com.korobeinik.taczarmors.TaczArmors;
-import com.korobeinik.taczarmors.content.CombatArmorAbility;
-import com.korobeinik.taczarmors.content.CombatArmorBonus;
-import com.korobeinik.taczarmors.content.CombatArmorItem;
-import com.korobeinik.taczarmors.content.CombatArmorMaterials;
+import com.korobeinik.taczarmors.items.armor.CombatArmorAbility;
+import com.korobeinik.taczarmors.items.armor.CombatArmorBonus;
+import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
+import com.korobeinik.taczarmors.items.armor.CombatArmorMaterials;
 import com.korobeinik.taczarmors.util.MobEquipmentUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;

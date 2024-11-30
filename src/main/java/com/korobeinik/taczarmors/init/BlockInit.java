@@ -1,7 +1,7 @@
 package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.TaczArmors;
-import com.korobeinik.taczarmors.content.blocks.ArmorWorkbenchBlock;
+import com.korobeinik.taczarmors.blocks.ArmorWorkbenchBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;

@@ -1,4 +1,4 @@
-package com.korobeinik.taczarmors.content;
+package com.korobeinik.taczarmors.items;
 
 import com.korobeinik.taczarmors.TaczArmors;
 import net.minecraft.nbt.CompoundTag;

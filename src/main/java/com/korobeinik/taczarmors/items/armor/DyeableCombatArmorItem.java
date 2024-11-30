@@ -1,4 +1,4 @@
-package com.korobeinik.taczarmors.content;
+package com.korobeinik.taczarmors.items.armor;
 
 import com.korobeinik.taczarmors.client.render.CombatArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;

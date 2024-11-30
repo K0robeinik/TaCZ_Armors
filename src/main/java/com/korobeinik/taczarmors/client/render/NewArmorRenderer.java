@@ -1,6 +1,6 @@
 package com.korobeinik.taczarmors.client.render;
 
-import com.korobeinik.taczarmors.content.CombatArmorItem;
+import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;

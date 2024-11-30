@@ -1,4 +1,4 @@
-package com.korobeinik.taczarmors.content;
+package com.korobeinik.taczarmors.items.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

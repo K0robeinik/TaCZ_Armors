@@ -1,7 +1,10 @@
 package com.korobeinik.taczarmors.init;
 
 import com.korobeinik.taczarmors.TaczArmors;
-import com.korobeinik.taczarmors.content.*;
+import com.korobeinik.taczarmors.items.*;
+import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
+import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
+import com.korobeinik.taczarmors.items.armor.VariedCombatArmorItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

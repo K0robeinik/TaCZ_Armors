@@ -1,4 +1,4 @@
-package com.korobeinik.taczarmors.content;
+package com.korobeinik.taczarmors.items.armor;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

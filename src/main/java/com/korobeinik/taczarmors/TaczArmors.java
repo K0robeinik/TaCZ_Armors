@@ -1,18 +1,13 @@
 package com.korobeinik.taczarmors;
 
 import com.korobeinik.taczarmors.config.ServerConfig;
-import com.korobeinik.taczarmors.content.ColorBottle;
-import com.korobeinik.taczarmors.content.DyeableCombatArmorItem;
-import com.korobeinik.taczarmors.content.KevlarHorseArmorItem;
+import com.korobeinik.taczarmors.items.ColorBottle;
+import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
+import com.korobeinik.taczarmors.items.KevlarHorseArmorItem;
 import com.korobeinik.taczarmors.init.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;

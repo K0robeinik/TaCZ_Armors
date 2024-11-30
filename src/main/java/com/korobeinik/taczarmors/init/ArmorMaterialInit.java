@@ -1,8 +1,8 @@
 package com.korobeinik.taczarmors.init;
 
-import com.korobeinik.taczarmors.content.CombatArmorAbility;
-import com.korobeinik.taczarmors.content.CombatArmorBonus;
-import com.korobeinik.taczarmors.content.CombatArmorMaterials;
+import com.korobeinik.taczarmors.items.armor.CombatArmorAbility;
+import com.korobeinik.taczarmors.items.armor.CombatArmorBonus;
+import com.korobeinik.taczarmors.items.armor.CombatArmorMaterials;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
