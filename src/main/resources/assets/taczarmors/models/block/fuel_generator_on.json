@@ -1,0 +1,6 @@
+{
+  "parent": "taczarmors:block/fuel_generator",
+  "textures": {
+    "front": "taczarmors:block/fuel_generator_front_on"
+  }
+}

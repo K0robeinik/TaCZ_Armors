@@ -3,8 +3,8 @@ package com.korobeinik.taczarmors.items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.*;
 
-public class ColorBottle extends Item implements DyeableLeatherItem {
-    public ColorBottle(Properties pProperties) {
+public class ColorBottleItem extends Item implements DyeableLeatherItem {
+    public ColorBottleItem(Properties pProperties) {
         super(pProperties);
     }
 
@@ -13,7 +13,7 @@ public class ColorBottle extends Item implements DyeableLeatherItem {
         return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : 0;
     }
 
-    public static int getItemColor(ItemStack stack, int tint){ return tint > 0 ? 0xFFFFFF : ((ColorBottle)stack.getItem()).getColor(stack);}
+    public static int getItemColor(ItemStack stack, int tint){ return tint > 0 ? 0xFFFFFF : ((ColorBottleItem)stack.getItem()).getColor(stack);}
 
 //    static ItemStack dyeArmor(ItemStack pStack, List<DyeItem> pDyes) {
 //        ItemStack resultStack = ItemStack.EMPTY;

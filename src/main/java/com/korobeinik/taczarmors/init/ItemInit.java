@@ -225,7 +225,7 @@ public class ItemInit {
     public static final RegistryObject<Item> PLASTIC_SHEET = registerMaterial("plastic_sheet");
     public static final RegistryObject<Item> COPPER_WIRE = registerMaterial("copper_wire");
     //==================================================================================(Other)============================================================================
-    public static final RegistryObject<Item> COLOR_BOTTLE = addToTab(ITEMS.register("color_bottle", () -> new ColorBottle(new Item.Properties())));
+    public static final RegistryObject<Item> COLOR_BOTTLE = addToTab(ITEMS.register("color_bottle", () -> new ColorBottleItem(new Item.Properties())));
 
     public static final RegistryObject<Item> KEVLAR_HORSE_ARMOR = addToTab(ITEMS.register("kevlar_horse_armor", () -> new KevlarHorseArmorItem(11, "kevlar", new Item.Properties().stacksTo(1))
     ));

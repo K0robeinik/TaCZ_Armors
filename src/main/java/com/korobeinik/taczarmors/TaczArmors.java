@@ -1,12 +1,14 @@
 package com.korobeinik.taczarmors;
 
+import com.korobeinik.taczarmors.client.screen.FuelGeneratorBlockScreen;
 import com.korobeinik.taczarmors.config.ServerConfig;
-import com.korobeinik.taczarmors.items.ColorBottle;
+import com.korobeinik.taczarmors.items.ColorBottleItem;
 import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
 import com.korobeinik.taczarmors.items.KevlarHorseArmorItem;
 import com.korobeinik.taczarmors.init.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -28,8 +30,10 @@ public class TaczArmors {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         BlockInit.BLOCKS.register(bus);
+        BlockEntityTypeInit.BLOCK_ENTITIES.register(bus);
         CreativeTabInit.TABS.register(bus);
         ItemInit.ITEMS.register(bus);
+        MenuInit.MENU_TYPES.register(bus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "taczarmors-server.toml");
     }
 
@@ -42,11 +46,17 @@ public class TaczArmors {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+            event.enqueueWork(() -> {
+                MenuScreens.register(MenuInit.FUEL_GENERATOR_MENU.get(), FuelGeneratorBlockScreen::new);
+            });
         }
+
+
 
         @SubscribeEvent
         public static void onRegisterItemColor(RegisterColorHandlersEvent.Item event){
-            event.register(ColorBottle::getItemColor, ItemInit.COLOR_BOTTLE.get());
+            event.register(ColorBottleItem::getItemColor, ItemInit.COLOR_BOTTLE.get());
             event.register(KevlarHorseArmorItem::getItemColor, ItemInit.KEVLAR_HORSE_ARMOR.get());
             event.register(DyeableCombatArmorItem::getItemColor, ItemInit.MODERN_HELMET.get(), ItemInit.MODERN_CHESTPLATE.get(), ItemInit.MODERN_LEGGINGS.get(), ItemInit.MODERN_BOOTS.get(), ItemInit.BERET.get(), ItemInit.GENERAL.get());
         }
