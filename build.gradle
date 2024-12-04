@@ -181,6 +181,7 @@ dependencies {
     //For energy compatibility test
     runtimeOnly fg.deobf("curse.maven:chargers-290433:5732621")
     runtimeOnly fg.deobf("curse.maven:powered-flashlight-966366:5611904")
+    implementation fg.deobf("curse.maven:boundless-flux-818105:5338309")
 
 
     // For more info:

@@ -5,6 +5,7 @@ import com.korobeinik.taczarmors.items.*;
 import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
 import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
 import com.korobeinik.taczarmors.items.armor.VariedCombatArmorItem;
+import com.korobeinik.taczarmors.items.energy.EnergyItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -227,6 +228,7 @@ public class ItemInit {
     //==================================================================================(Other)============================================================================
     public static final RegistryObject<Item> COLOR_BOTTLE = addToTab(ITEMS.register("color_bottle", () -> new ColorBottleItem(new Item.Properties())));
 
-    public static final RegistryObject<Item> KEVLAR_HORSE_ARMOR = addToTab(ITEMS.register("kevlar_horse_armor", () -> new KevlarHorseArmorItem(11, "kevlar", new Item.Properties().stacksTo(1))
-    ));
+    public static final RegistryObject<Item> KEVLAR_HORSE_ARMOR = addToTab(ITEMS.register("kevlar_horse_armor", () -> new KevlarHorseArmorItem(11, "kevlar", new Item.Properties().stacksTo(1))));
+
+    public static final RegistryObject<Item> BATTERY = addToTab(ITEMS.register("battery", EnergyItem::new));
 }

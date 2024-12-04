@@ -36,7 +36,7 @@ public class FuelGeneratorBlockEntity extends BlockEntity implements MenuProvide
         }
     };
     private LazyOptional<ItemStackHandler> lazyInventory = LazyOptional.empty();
-    private final CustomEnergyStorage energyStorage = new CustomEnergyStorage(8192, 0, 512, 0);
+    private final CustomEnergyStorage energyStorage = new CustomEnergyStorage(10000, 0, 500, 0);
     private LazyOptional<CustomEnergyStorage> lazyEnergy = LazyOptional.empty();
 
     public FuelGeneratorBlockEntity(BlockPos pos, BlockState blockState) {
