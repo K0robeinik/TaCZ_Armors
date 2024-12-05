@@ -29,6 +29,7 @@ public class TaczArmors {
     public TaczArmors() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        AttributeInit.ATTRIBUTES.register(bus);
         BlockInit.BLOCKS.register(bus);
         BlockEntityTypeInit.BLOCK_ENTITIES.register(bus);
         CreativeTabInit.TABS.register(bus);

@@ -3,6 +3,7 @@ package com.korobeinik.taczarmors.items.armor;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.korobeinik.taczarmors.client.render.CombatArmorRenderer;
+import com.korobeinik.taczarmors.init.AttributeInit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.HumanoidModel;
@@ -19,6 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.ForgeMod;
+import net.puffish.attributesmod.AttributesMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -56,11 +59,22 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         this.suitName = suitName;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIERS[type.ordinal()];
-        builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.getType()), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.type), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));
         if (armorMaterial.getKnockbackResistance() > 0) {
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
         }
+        builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Movement Speed", armorMaterial.getBonusForType(CombatArmorBonus.SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
+        builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Max Health", armorMaterial.getBonusForType(CombatArmorBonus.HEALTH, this.type), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Attack Damage", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_DAMAGE, this.type), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "Attack Speed", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
+        builder.put(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(uuid, "Attack Knockback", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_KNOCKBACK, this.type), AttributeModifier.Operation.ADDITION));
+
+        builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Step Height", armorMaterial.getBonusForType(CombatArmorBonus.STEP_HEIGHT, this.type), AttributeModifier.Operation.ADDITION));
+        builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getBonusForType(CombatArmorBonus.SWIM_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
+
+        builder.put(AttributesMod.JUMP, new AttributeModifier(uuid, "Bonus Jump", armorMaterial.getBonusForType(CombatArmorBonus.JUMPHEIGHT, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
+        builder.put(AttributeInit.FALL_HEIGHT.get(), new AttributeModifier(uuid, "Bonus Fall", armorMaterial.getBonusForType(CombatArmorBonus.FALLHEIGHT, this.type), AttributeModifier.Operation.ADDITION));
         defModifiers = builder.build();
     }
 
@@ -74,8 +88,8 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot p_40390_) {
-        return p_40390_ == this.type.getSlot() ? this.defModifiers : super.getDefaultAttributeModifiers(p_40390_);
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+        return slot == this.type.getSlot() ? this.defModifiers : ImmutableMultimap.of();
     }
 //item.color
     @Override
@@ -92,10 +106,14 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         }
     }
 
-    private void appendBonus(CombatArmorBonus bonus, List<Component> list){
+    private void appendBonus(CombatArmorBonus bonus, List<Component> list) {
         if (this.getMaterial().getBonusForType(bonus, type)!=0){
             list.add(Component.literal(bonus.name() + ": " + this.getMaterial().getBonusForType(bonus, type)).withStyle(ChatFormatting.GREEN));
         }
+    }
+
+    public boolean tryConsumeEnergy(ItemStack stack, int amount) {
+        return true;
     }
 
     @Override

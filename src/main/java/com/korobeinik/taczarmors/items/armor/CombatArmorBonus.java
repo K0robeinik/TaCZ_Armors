@@ -6,6 +6,7 @@ public enum CombatArmorBonus {
     HEALTH,
     JUMPHEIGHT,
     FALLHEIGHT,
+    STEP_HEIGHT,
     ATTACK_DAMAGE,
     ATTACK_SPEED,
     ATTACK_KNOCKBACK

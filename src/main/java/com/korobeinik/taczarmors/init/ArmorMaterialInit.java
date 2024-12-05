@@ -54,6 +54,7 @@ public class ArmorMaterialInit {
             .setBonus(CombatArmorBonus.SPEED, .2F)
             .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0,1)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-2)
+            .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5f)
             .build();
 
     public static final CombatArmorMaterials EXOSKELETON = CombatArmorMaterials.builder(
@@ -64,12 +65,13 @@ public class ArmorMaterialInit {
             SoundEvents.ARMOR_EQUIP_NETHERITE,
             Ingredient.of(Items.AMETHYST_SHARD),
             1)
-            .setBonus(CombatArmorBonus.SPEED, .25F)
+            .setBonus(CombatArmorBonus.SPEED, .1F)
             .setBonus(CombatArmorBonus.ATTACK_DAMAGE, 0, 9, 0, 0)
             .setBonus(CombatArmorBonus.ATTACK_SPEED, 0, 2, 0, 0)
             .setBonus(CombatArmorBonus.ATTACK_KNOCKBACK, 0, 1, 0, 0)
             .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, 1)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-5)
+            .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5f)
             .addAbility(CombatArmorAbility.LONG_JUMP)
             .build();
 

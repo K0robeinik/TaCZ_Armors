@@ -32,40 +32,12 @@ public class EnergyItem extends Item implements IEnergyItem{
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         ItemStack heldItem = pContext.getItemInHand();
         if (!pContext.getLevel().isClientSide() && pContext.getPlayer() != null){
-            if(heldItem.getItem() instanceof EnergyItem) {
+            if(heldItem.getItem() instanceof EnergyItem && isCharged(heldItem)) {
                 this.extractEnergy(heldItem, 500);
                 pContext.getPlayer().sendSystemMessage(Component.literal("Position: " + pContext.getClickedPos() + ", Energy Remaining: " + getEnergy(heldItem)));
             }
         }
         return super.useOn(pContext);
-    }
-
-    public boolean isCharged(ItemStack stack){
-        return this.getEnergy(stack) > 0;
-    }
-
-    @Override
-    public int getEnergy(ItemStack stack){
-        IEnergyStorage energyStorage = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
-        return energyStorage.getEnergyStored();
-    }
-
-    @Override
-    public int getCapacity(ItemStack stack){
-        IEnergyStorage energyStorage = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
-        return energyStorage.getMaxEnergyStored();
-    }
-
-    @Override
-    public void receiveEnergy(ItemStack stack, int amount) {
-        IEnergyStorage energyStorage = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
-        energyStorage.receiveEnergy(amount, false);
-    }
-
-    @Override
-    public void extractEnergy(ItemStack stack, int amount){
-        IEnergyStorage energyStorage = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
-        energyStorage.extractEnergy(amount, false);
     }
 
     @Override

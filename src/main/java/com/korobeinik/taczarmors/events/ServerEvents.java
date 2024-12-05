@@ -11,13 +11,12 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 @Mod.EventBusSubscriber(modid = TaczArmors.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
     @SubscribeEvent
-    public static void onEntitySpawnFinal(MobSpawnEvent.FinalizeSpawn event) {
+    public static void onEntitySpawnFinal(MobSpawnEvent.@NotNull FinalizeSpawn event) {
         LivingEntity entity = event.getEntity();
         Difficulty difficulty = event.getDifficulty().getDifficulty();
         int chance = ServerConfig.SPAWN_WITH_ARMOR_CHANCE.get();
@@ -30,5 +29,9 @@ public class ServerEvents {
                 entity.setItemSlot(EquipmentSlot.FEET, ItemInit.MODERN_BOOTS.get().getDefaultInstance());
             }
         }
+    }
+
+    protected static float sprintMultiplier(LivingEntity entity){
+        return entity.isSprinting() ? 2 : 1;
     }
 }

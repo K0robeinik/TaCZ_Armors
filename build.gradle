@@ -58,7 +58,7 @@ minecraft {
         configureEach {
             /*property "mixin.env.remapRefMap", "true"
             property "mixin.env.refMapRemappingFile", "${buildDir}/createSrgToMcp/output.srg"*/
-            property "mixin.env.disableRefMap", "true"
+            //property "mixin.env.disableRefMap", "true"
 
             workingDirectory project.file('run')
 
@@ -148,6 +148,9 @@ repositories {
         url = "https://maven.theillusivec4.top/"
     }
     maven {
+        url = uri("https://maven.puffish.net")
+    }
+    maven {
         // Add curse maven to repositories
         name = "Curse Maven"
         url = "https://www.cursemaven.com"
@@ -164,7 +167,6 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    //annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:5722050-sources-5724527")
 
     // compile against the JEI API but do not include it at runtime
@@ -175,13 +177,19 @@ dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
     implementation("com.eliotlash.mclib:mclib:20")
 
+    //Attributes
+    //implementation fg.deobf("net.puffish:attributesmod:0.6.0+1.20:sources")
+    implementation fg.deobf("net.puffish:attributesmod:0.6.0+1.20:forge")
+
     //For config test
     runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
 
     //For energy compatibility test
     runtimeOnly fg.deobf("curse.maven:chargers-290433:5732621")
     runtimeOnly fg.deobf("curse.maven:powered-flashlight-966366:5611904")
-    implementation fg.deobf("curse.maven:boundless-flux-818105:5338309")
+    runtimeOnly fg.deobf("curse.maven:boundless-flux-818105:5338309")
+
+    //runtimeOnly fg.deobf("curse.maven:puffish-attributes-991341:5932122")
 
 
     // For more info:

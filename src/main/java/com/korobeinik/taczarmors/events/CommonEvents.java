@@ -1,22 +1,19 @@
 package com.korobeinik.taczarmors.events;
 
 import com.korobeinik.taczarmors.TaczArmors;
-import com.korobeinik.taczarmors.items.armor.CombatArmorAbility;
-import com.korobeinik.taczarmors.items.armor.CombatArmorBonus;
-import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
-import com.korobeinik.taczarmors.items.armor.CombatArmorMaterials;
+import com.korobeinik.taczarmors.init.AttributeInit;
+import com.korobeinik.taczarmors.items.armor.*;
 import com.korobeinik.taczarmors.util.MobEquipmentUtil;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.puffish.attributesmod.AttributesMod;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -29,30 +26,30 @@ public class CommonEvents {
     private static final UUID ATTACK_DAMAGE_MODIFIER = UUID.fromString("710292F2-48D5-9434-A29F-7773AF7DF28D");
     private static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("720292F2-48D5-9434-A29F-7773AF7DF28D");
     private static final UUID ATTACK_KNOCKBACK_MODIFIER = UUID.fromString("730292F2-48D5-9434-A29F-7773AF7DF28D");
+
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.@NotNull LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
-        if (item != null) {
-            CombatArmorMaterials material = item.getMaterial();
-            float jumpHeight = material.getBonusForEntity(CombatArmorBonus.JUMPHEIGHT, entity);
-            if (jumpHeight>0) {
-                entity.addDeltaMovement(new Vec3(0, 0.15 * jumpHeight, 0));
-                if(material.hasAbility(CombatArmorAbility.LONG_JUMP, entity) && entity.isSprinting()) {
-                    float x = 1;
-                    float f = entity.getYHeadRot() * ((float)Math.PI / 180F);
-                    entity.addDeltaMovement(new Vec3((-Mth.sin(f) * x), 0, (Mth.cos(f) * x)));
-                }
-            }
-        }
+        // && PoweredCombatArmorItem.consumeEnergy(entity, 10 * (int)sprintMultiplier(entity))
+        entity.setDeltaMovement(
+            entity.getDeltaMovement().x * sprintMultiplier(entity),
+            entity.getDeltaMovement().y,
+            entity.getDeltaMovement().z * sprintMultiplier(entity)
+        );
     }
+
+    protected static float sprintMultiplier(LivingEntity entity){
+        return entity.isSprinting() ? 2 : 1;
+    }
+
     @SubscribeEvent
     public static void onLivingFall(@NotNull LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
-        CombatArmorItem item = MobEquipmentUtil.tryGetCombatArmor(entity);
-        if (item != null) {
-            float fallHeight = item.getMaterial().getBonusForEntity(CombatArmorBonus.FALLHEIGHT, entity);
-            event.setDistance(event.getDistance()+fallHeight);
+        AttributeInstance fallHeight = entity.getAttribute(AttributeInit.FALL_HEIGHT.get());
+        if (fallHeight != null) {
+            double y = entity.getAttributeValue(AttributeInit.FALL_HEIGHT.get());
+            //System.out.println("Level: " +entity.level().isClientSide() + ", Fall: " + y);
+            event.setDistance(event.getDistance()+(float) y);
         }
     }
 
@@ -82,15 +79,8 @@ public class CommonEvents {
                 attribute.removeModifier(SPEED_MODIFIER);
             }
             if (item != null && attribute.getModifier(SPEED_MODIFIER) == null){
-                float speed = item.getMaterial().getBonusForEntity(CombatArmorBonus.SPEED, entity);
-                speed = entity.isSprinting() ? speed*2 : speed;
-                if (speed>0) attribute.addTransientModifier(new AttributeModifier(SPEED_MODIFIER, "Bonus Speed", speed, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                if (item.getMaterial().getBonusForEntity(CombatArmorBonus.SPEED, entity)>0) attribute.addTransientModifier(new AttributeModifier(SPEED_MODIFIER, "Bonus Speed", sprintMultiplier(entity), AttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
-        //setModifier(entity, Attributes.MOVEMENT_SPEED, SPEED_MODIFIER, CombatArmorBonus.SPEED, "Bonus Speed", AttributeModifier.Operation.MULTIPLY_TOTAL);
-        setModifier(entity, Attributes.MAX_HEALTH, MAX_HEALTH_MODIFIER, CombatArmorBonus.HEALTH, "Bonus Health", AttributeModifier.Operation.ADDITION);
-        setModifier(entity, Attributes.ATTACK_DAMAGE, ATTACK_DAMAGE_MODIFIER, CombatArmorBonus.ATTACK_DAMAGE, "Bonus Attack Damage", AttributeModifier.Operation.ADDITION);
-        setModifier(entity, Attributes.ATTACK_SPEED, ATTACK_SPEED_MODIFIER, CombatArmorBonus.ATTACK_SPEED, "Bonus Attack Speed", AttributeModifier.Operation.MULTIPLY_TOTAL);
-        setModifier(entity, Attributes.ATTACK_KNOCKBACK, ATTACK_KNOCKBACK_MODIFIER, CombatArmorBonus.ATTACK_KNOCKBACK, "Bonus Attack Knockback", AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 }

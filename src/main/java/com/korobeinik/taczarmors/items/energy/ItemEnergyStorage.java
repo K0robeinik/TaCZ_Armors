@@ -5,12 +5,7 @@ import net.minecraftforge.energy.EnergyStorage;
 
 public class ItemEnergyStorage extends EnergyStorage {
     public static final String ENERGY_TAG = "Energy";
-    private final ItemStack itemStack;
-    public ItemEnergyStorage(ItemStack itemStack, int capacity, int maxReceive, int maxExtract) {
-        this(itemStack, capacity, maxReceive, maxExtract, 0);
-    }
-
-    public ItemEnergyStorage(ItemStack itemStack, int capacity, int maxReceive, int maxExtract, int energy) {
+    private final ItemStack itemStack;public ItemEnergyStorage(ItemStack itemStack, int capacity, int maxReceive, int maxExtract, int energy) {
         super(capacity, maxReceive, maxExtract, energy);
         itemStack.getOrCreateTag().putInt(ENERGY_TAG, energy);
         this.itemStack = itemStack;
@@ -27,7 +22,6 @@ public class ItemEnergyStorage extends EnergyStorage {
     public int receiveEnergy(int maxReceive, boolean simulate) {
         int received = super.receiveEnergy(maxReceive, simulate);
         if(!simulate) itemStack.getOrCreateTag().putInt(ENERGY_TAG, energy);
-        System.out.println("rrrrrrrReceive Energy");
         return received;
     }
 }

@@ -2,7 +2,9 @@ package com.korobeinik.taczarmors.util;
 
 import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
 import com.korobeinik.taczarmors.init.ItemInit;
+import com.korobeinik.taczarmors.items.armor.PoweredCombatArmorItem;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;

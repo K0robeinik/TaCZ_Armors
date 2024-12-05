@@ -4,6 +4,7 @@ import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.items.*;
 import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
 import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
+import com.korobeinik.taczarmors.items.armor.PoweredCombatArmorItem;
 import com.korobeinik.taczarmors.items.armor.VariedCombatArmorItem;
 import com.korobeinik.taczarmors.items.energy.EnergyItem;
 import net.minecraft.world.item.*;
@@ -18,28 +19,28 @@ public class ItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TaczArmors.MODID);
 
     public static final RegistryObject<Item> T1_COMBAT_HELMET = addToTab(ITEMS.register("combat_t1_helmet",
-            () -> new CombatArmorItem(
+            () -> new PoweredCombatArmorItem(
                     ArmorMaterialInit.COMBAT_T1,
                     ArmorItem.Type.HELMET
             )
     ));
 
     public static final RegistryObject<Item> T1_COMBAT_CHESTPLATE = addToTab(ITEMS.register("combat_t1_chestplate",
-            () -> new CombatArmorItem(
+            () -> new PoweredCombatArmorItem(
                     ArmorMaterialInit.COMBAT_T1,
                     ArmorItem.Type.CHESTPLATE
             )
     ));
 
     public static final RegistryObject<Item> T1_COMBAT_LEGGINGS = addToTab(ITEMS.register("combat_t1_leggings",
-            () -> new CombatArmorItem(
+            () -> new PoweredCombatArmorItem(
                     ArmorMaterialInit.COMBAT_T1,
                     ArmorItem.Type.LEGGINGS
             )
     ));
 
     public static final RegistryObject<Item> T1_COMBAT_BOOTS = addToTab(ITEMS.register("combat_t1_boots",
-            () -> new CombatArmorItem(
+            () -> new PoweredCombatArmorItem(
                     ArmorMaterialInit.COMBAT_T1,
                     ArmorItem.Type.BOOTS
             )
