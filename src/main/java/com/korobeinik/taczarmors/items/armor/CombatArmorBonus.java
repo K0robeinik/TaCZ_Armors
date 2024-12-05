@@ -9,5 +9,9 @@ public enum CombatArmorBonus {
     STEP_HEIGHT,
     ATTACK_DAMAGE,
     ATTACK_SPEED,
-    ATTACK_KNOCKBACK
+    ATTACK_KNOCKBACK,
+    SPRINT_SPEED,
+    MINING_SPEED,
+    STAMINA,
+    RESISTANCE
 }

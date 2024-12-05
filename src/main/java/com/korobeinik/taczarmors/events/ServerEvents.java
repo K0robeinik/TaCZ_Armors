@@ -30,8 +30,4 @@ public class ServerEvents {
             }
         }
     }
-
-    protected static float sprintMultiplier(LivingEntity entity){
-        return entity.isSprinting() ? 2 : 1;
-    }
 }

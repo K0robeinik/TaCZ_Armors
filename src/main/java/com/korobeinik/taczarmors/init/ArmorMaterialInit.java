@@ -39,7 +39,8 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             2.0F,
             .1F)
-            .setBonus(CombatArmorBonus.HEALTH, .25F)
+            .setBonus(CombatArmorBonus.SPEED, .05F)
+            .setBonus(CombatArmorBonus.HEALTH, 1, 2, 2, 1)
             .build();
 
     public static final CombatArmorMaterials ASSASSIN = CombatArmorMaterials.builder(
@@ -54,7 +55,7 @@ public class ArmorMaterialInit {
             .setBonus(CombatArmorBonus.SPEED, .2F)
             .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0,1)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-2)
-            .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5f)
+            .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5F)
             .build();
 
     public static final CombatArmorMaterials EXOSKELETON = CombatArmorMaterials.builder(
@@ -69,9 +70,10 @@ public class ArmorMaterialInit {
             .setBonus(CombatArmorBonus.ATTACK_DAMAGE, 0, 9, 0, 0)
             .setBonus(CombatArmorBonus.ATTACK_SPEED, 0, 2, 0, 0)
             .setBonus(CombatArmorBonus.ATTACK_KNOCKBACK, 0, 1, 0, 0)
-            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, 1)
+            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, .25F)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-5)
-            .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5f)
+            .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5F)
+            .setBonus(CombatArmorBonus.SPRINT_SPEED, 0.25F)
             .addAbility(CombatArmorAbility.LONG_JUMP)
             .build();
 

@@ -69,12 +69,14 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Attack Damage", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_DAMAGE, this.type), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "Attack Speed", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
         builder.put(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(uuid, "Attack Knockback", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_KNOCKBACK, this.type), AttributeModifier.Operation.ADDITION));
-
         builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Step Height", armorMaterial.getBonusForType(CombatArmorBonus.STEP_HEIGHT, this.type), AttributeModifier.Operation.ADDITION));
         builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getBonusForType(CombatArmorBonus.SWIM_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
-
         builder.put(AttributesMod.JUMP, new AttributeModifier(uuid, "Bonus Jump", armorMaterial.getBonusForType(CombatArmorBonus.JUMPHEIGHT, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
         builder.put(AttributeInit.FALL_HEIGHT.get(), new AttributeModifier(uuid, "Bonus Fall", armorMaterial.getBonusForType(CombatArmorBonus.FALLHEIGHT, this.type), AttributeModifier.Operation.ADDITION));
+        builder.put(AttributesMod.SPRINTING_SPEED, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.SPRINT_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
+        builder.put(AttributesMod.MINING_SPEED, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.MINING_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
+        builder.put(AttributesMod.STAMINA, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.STAMINA, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
+        builder.put(AttributesMod.RESISTANCE, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.RESISTANCE, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
         defModifiers = builder.build();
     }
 

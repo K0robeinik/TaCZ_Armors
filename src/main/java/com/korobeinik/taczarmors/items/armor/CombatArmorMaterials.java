@@ -30,6 +30,10 @@ public class CombatArmorMaterials implements ArmorMaterial {
     private final float[] attackDamage;
     private final float[] attackSpeed;
     private final float[] attackKnockback;
+    private final float[] sprintSpeed;
+    private final float[] miningSpeed;
+    private final float[] stamina;
+    private final float[] resistance;
     private final ArrayList<CombatArmorAbility> abilityList;
 
     public CombatArmorMaterials(Builder builder) {
@@ -50,6 +54,10 @@ public class CombatArmorMaterials implements ArmorMaterial {
         this.attackDamage = builder.attackDamage;
         this.attackSpeed = builder.attackSpeed;
         this.attackKnockback = builder.attackKnockback;
+        this.sprintSpeed = builder.sprintSpeed;
+        this.miningSpeed = builder.miningSpeed;
+        this.stamina = builder.stamina;
+        this.resistance = builder.resistance;
         this.abilityList = builder.abilityList;
     }
 
@@ -57,10 +65,6 @@ public class CombatArmorMaterials implements ArmorMaterial {
     public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness) {
         return builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, 0.0F);
     }
-
-    /*public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist) {
-        return builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, knockbackResist, null);
-    }*/
 
     public static Builder builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist) {
         return new Builder(name, durability, damageReduction, encantability, sound, ingredient, toughness, knockbackResist);
@@ -92,6 +96,10 @@ public class CombatArmorMaterials implements ArmorMaterial {
             case ATTACK_DAMAGE -> {return attackDamage == null ? 0 : attackDamage[type.ordinal()];}
             case ATTACK_SPEED -> {return attackSpeed == null ? 0 : attackSpeed[type.ordinal()];}
             case ATTACK_KNOCKBACK -> {return attackKnockback == null ? 0 : attackKnockback[type.ordinal()];}
+            case SPRINT_SPEED -> {return sprintSpeed == null ? 0 : sprintSpeed[type.ordinal()];}
+            case MINING_SPEED -> {return miningSpeed == null ? 0 : miningSpeed[type.ordinal()];}
+            case STAMINA -> {return stamina == null ? 0 : stamina[type.ordinal()];}
+            case RESISTANCE -> {return resistance == null ? 0 : resistance[type.ordinal()];}
         }
         return 0;
     }
@@ -137,6 +145,10 @@ public class CombatArmorMaterials implements ArmorMaterial {
         private float[] attackDamage = ZERO_ARRAY;
         private float[] attackSpeed = ZERO_ARRAY;
         private float[] attackKnockback = ZERO_ARRAY;
+        private float[] sprintSpeed = ZERO_ARRAY;
+        private float[] miningSpeed = ZERO_ARRAY;
+        private float[] stamina = ZERO_ARRAY;
+        private float[] resistance = ZERO_ARRAY;
         private ArrayList<CombatArmorAbility> abilityList = new ArrayList<>();
 
         private Builder(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, Ingredient ingredient, float toughness, float knockbackResist){
@@ -162,12 +174,11 @@ public class CombatArmorMaterials implements ArmorMaterial {
                 case ATTACK_DAMAGE -> this.attackDamage = value;
                 case ATTACK_SPEED -> this.attackSpeed = value;
                 case ATTACK_KNOCKBACK -> this.attackKnockback = value;
+                case SPRINT_SPEED -> this.sprintSpeed = value;
+                case MINING_SPEED -> this.miningSpeed = value;
+                case STAMINA -> this.stamina = value;
+                case RESISTANCE -> this.resistance = value;
             }
-        }
-
-        public Builder setBonus(CombatArmorBonus bonus, float[] value) {
-            switchBonus(bonus, value);
-            return this;
         }
 
         public Builder setBonus(CombatArmorBonus bonus, float value){
