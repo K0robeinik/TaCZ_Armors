@@ -35,9 +35,9 @@ public class PoweredCombatArmorItem extends CombatArmorItem implements IEnergyIt
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
+    public void appendMain(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
         pStack.getCapability(ForgeCapabilities.ENERGY, null).ifPresent(iEnergyStorage -> list.add(Component.literal("Energy: " + iEnergyStorage.getEnergyStored() + "/ " + iEnergyStorage.getMaxEnergyStored()).withStyle(ChatFormatting.AQUA)));
-        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
+        super.appendMain(pStack, pLevel, list, pIsAdvanced);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class PoweredCombatArmorItem extends CombatArmorItem implements IEnergyIt
 
     @Override
     public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
-        if (slotIndex == type.getSlot().getIndex(36)) {
-            tryConsumeEnergy(stack, 1);
+        if (player.isShiftKeyDown() && slotIndex == type.getSlot().getIndex(36)) {
+            tryConsumeEnergy(stack, 1000);
         }
         super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }

@@ -7,6 +7,8 @@ import com.korobeinik.taczarmors.init.AttributeInit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -59,25 +62,31 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
         this.suitName = suitName;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIERS[type.ordinal()];
-        builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.type), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));
-        if (armorMaterial.getKnockbackResistance() > 0) {
+        if (armorMaterial.getDefenseForType(this.type) > 0)
+            builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", armorMaterial.getDefenseForType(this.type), AttributeModifier.Operation.ADDITION));
+        if (armorMaterial.getToughness() > 0)
+            builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", armorMaterial.getToughness(), AttributeModifier.Operation.ADDITION));
+        if (armorMaterial.getKnockbackResistance() > 0)
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
-        }
-        builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Movement Speed", armorMaterial.getBonusForType(CombatArmorBonus.SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
-        builder.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "Max Health", armorMaterial.getBonusForType(CombatArmorBonus.HEALTH, this.type), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Attack Damage", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_DAMAGE, this.type), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "Attack Speed", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
-        builder.put(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(uuid, "Attack Knockback", armorMaterial.getBonusForType(CombatArmorBonus.ATTACK_KNOCKBACK, this.type), AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, "Step Height", armorMaterial.getBonusForType(CombatArmorBonus.STEP_HEIGHT, this.type), AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed", armorMaterial.getBonusForType(CombatArmorBonus.SWIM_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
-        builder.put(AttributesMod.JUMP, new AttributeModifier(uuid, "Bonus Jump", armorMaterial.getBonusForType(CombatArmorBonus.JUMPHEIGHT, this.type), AttributeModifier.Operation.MULTIPLY_BASE));
-        builder.put(AttributeInit.FALL_HEIGHT.get(), new AttributeModifier(uuid, "Bonus Fall", armorMaterial.getBonusForType(CombatArmorBonus.FALLHEIGHT, this.type), AttributeModifier.Operation.ADDITION));
-        builder.put(AttributesMod.SPRINTING_SPEED, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.SPRINT_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(AttributesMod.MINING_SPEED, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.MINING_SPEED, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(AttributesMod.STAMINA, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.STAMINA, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
-        builder.put(AttributesMod.RESISTANCE, new AttributeModifier(uuid, "Sprint Speed", armorMaterial.getBonusForType(CombatArmorBonus.RESISTANCE, this.type), AttributeModifier.Operation.MULTIPLY_TOTAL));
+        putAttribute(builder, Attributes.MOVEMENT_SPEED, uuid, CombatArmorBonus.SPEED, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, Attributes.MAX_HEALTH, uuid, CombatArmorBonus.HEALTH, AttributeModifier.Operation.ADDITION);
+        putAttribute(builder, Attributes.ATTACK_DAMAGE, uuid, CombatArmorBonus.ATTACK_DAMAGE, AttributeModifier.Operation.ADDITION);
+        putAttribute(builder, Attributes.ATTACK_SPEED, uuid, CombatArmorBonus.ATTACK_SPEED, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, Attributes.ATTACK_KNOCKBACK, uuid, CombatArmorBonus.ATTACK_KNOCKBACK, AttributeModifier.Operation.ADDITION);
+        putAttribute(builder, ForgeMod.STEP_HEIGHT_ADDITION.get(), uuid, CombatArmorBonus.STEP_HEIGHT, AttributeModifier.Operation.ADDITION);
+        putAttribute(builder, ForgeMod.SWIM_SPEED.get(), uuid, CombatArmorBonus.SWIM_SPEED,  AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, AttributesMod.JUMP, uuid, CombatArmorBonus.JUMPHEIGHT, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, AttributeInit.FALL_HEIGHT.get(), uuid, CombatArmorBonus.FALLHEIGHT, AttributeModifier.Operation.ADDITION);
+        putAttribute(builder, AttributesMod.SPRINTING_SPEED, uuid, CombatArmorBonus.SPRINT_SPEED, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, AttributesMod.MINING_SPEED, uuid, CombatArmorBonus.MINING_SPEED, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, AttributesMod.STAMINA, uuid, CombatArmorBonus.STAMINA, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        putAttribute(builder, AttributesMod.RESISTANCE, uuid, CombatArmorBonus.RESISTANCE, AttributeModifier.Operation.MULTIPLY_TOTAL);
         defModifiers = builder.build();
+    }
+
+    private void putAttribute(ImmutableMultimap.Builder<Attribute, AttributeModifier> builder, Attribute key, UUID uuid, CombatArmorBonus bonus, AttributeModifier.Operation operation) {
+        double value = this.combatArmorMaterial.getBonusForType(bonus, this.type);
+        if (value!=0) builder.put(key, new AttributeModifier(uuid, bonus.name(), value, operation));
     }
 
     @Override
@@ -96,22 +105,32 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
 //item.color
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
-        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
         if(Screen.hasShiftDown()){
             list.add(Component.translatable("item.tooltip.taczarmors.bonuses").withStyle(ChatFormatting.GRAY));
-            for (CombatArmorBonus bonus: CombatArmorBonus.values()) {
-                appendBonus(bonus, list);
-            }
+            appendAttributes(pStack, defModifiers, list);
         }
         else {
+            super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
+            appendMain(pStack, pLevel, list, pIsAdvanced);
+            list.add(Component.empty());
             list.add(Component.translatable("item.tooltip.taczarmors.bonuses_press_shift").withStyle(ChatFormatting.GRAY));
         }
     }
 
-    private void appendBonus(CombatArmorBonus bonus, List<Component> list) {
-        if (this.getMaterial().getBonusForType(bonus, type)!=0){
-            list.add(Component.literal(bonus.name() + ": " + this.getMaterial().getBonusForType(bonus, type)).withStyle(ChatFormatting.GREEN));
-        }
+    protected void appendMain(@NotNull ItemStack pStack, @javax.annotation.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced){}
+
+    private void appendAttributes(ItemStack stack, Multimap<Attribute, AttributeModifier> attributeMap, List<Component> list) {
+        ChatFormatting color = stack.getItem() instanceof PoweredCombatArmorItem poweredItem && !poweredItem.isCharged(stack) ? ChatFormatting.DARK_GRAY : ChatFormatting.BLUE;
+        attributeMap.keys().forEach(
+                attribute -> attributeMap.get(attribute).stream().findFirst().ifPresent(
+                        attributeModifier -> list.add(Component.translatable(attribute.getDescriptionId()).append(": ").append(String.valueOf((float) attributeModifier.getAmount())).withStyle(color))
+                )
+        );
+    }
+
+    @Override
+    public int getDefaultTooltipHideFlags(@NotNull ItemStack stack) {
+        return 66;
     }
 
     public boolean tryConsumeEnergy(ItemStack stack, int amount) {

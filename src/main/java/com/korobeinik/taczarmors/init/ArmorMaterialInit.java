@@ -1,6 +1,5 @@
 package com.korobeinik.taczarmors.init;
 
-import com.korobeinik.taczarmors.items.armor.CombatArmorAbility;
 import com.korobeinik.taczarmors.items.armor.CombatArmorBonus;
 import com.korobeinik.taczarmors.items.armor.CombatArmorMaterials;
 import net.minecraft.sounds.SoundEvents;
@@ -18,6 +17,7 @@ public class ArmorMaterialInit {
             Ingredient.of(Items.AMETHYST_SHARD),
             0,
             .1F)
+            .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 1, 0, 0)
             .build();
 
     public static final CombatArmorMaterials GHILLIE = CombatArmorMaterials.builder(
@@ -73,8 +73,7 @@ public class ArmorMaterialInit {
             .setBonus(CombatArmorBonus.JUMPHEIGHT, 0, 0, 0, .25F)
             .setBonus(CombatArmorBonus.FALLHEIGHT, 0, 0, 0,-5)
             .setBonus(CombatArmorBonus.STEP_HEIGHT, 0, 0, 0, .5F)
-            .setBonus(CombatArmorBonus.SPRINT_SPEED, 0.25F)
-            .addAbility(CombatArmorAbility.LONG_JUMP)
+            .setBonus(CombatArmorBonus.SPRINT_SPEED, 0, 0, 0, 0.25F)
             .build();
 
     public static final CombatArmorMaterials MODERN = CombatArmorMaterials.builder(
