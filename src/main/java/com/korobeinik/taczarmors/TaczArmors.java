@@ -1,6 +1,8 @@
 package com.korobeinik.taczarmors;
 
+import com.korobeinik.taczarmors.client.overlays.HelmetOverlay;
 import com.korobeinik.taczarmors.client.screen.FuelGeneratorBlockScreen;
+import com.korobeinik.taczarmors.config.ClientConfig;
 import com.korobeinik.taczarmors.config.ServerConfig;
 import com.korobeinik.taczarmors.items.ColorBottleItem;
 import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
@@ -12,6 +14,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,6 +39,7 @@ public class TaczArmors {
         ItemInit.ITEMS.register(bus);
         MenuInit.MENU_TYPES.register(bus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "taczarmors-server.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC, "taczarmors-client.toml");
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -52,8 +56,6 @@ public class TaczArmors {
                 MenuScreens.register(MenuInit.FUEL_GENERATOR_MENU.get(), FuelGeneratorBlockScreen::new);
             });
         }
-
-
 
         @SubscribeEvent
         public static void onRegisterItemColor(RegisterColorHandlersEvent.Item event){
@@ -73,6 +75,11 @@ public class TaczArmors {
 //                    event.accept(stack);
 //                }
             }
+        }
+
+        @SubscribeEvent
+        public static void registerOverlays(RegisterGuiOverlaysEvent event){
+            event.registerBelowAll("helmet_overlay", HelmetOverlay.HUD_HELMET);
         }
     }
 }

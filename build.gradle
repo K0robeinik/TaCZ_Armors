@@ -189,6 +189,12 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:powered-flashlight-966366:5611904")
     runtimeOnly fg.deobf("curse.maven:boundless-flux-818105:5338309")
 
+    //(｡o_o｡)"
+    implementation fg.deobf("curse.maven:female-gender-neoforge-481655:4896743")
+
+    //Myekanyizm
+    implementation fg.deobf("curse.maven:mekanism-268560:5919382")
+
     //runtimeOnly fg.deobf("curse.maven:puffish-attributes-991341:5932122")
 
 
