@@ -4,11 +4,14 @@ import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.init.AttributeInit;
 import com.korobeinik.taczarmors.items.armor.*;
 import com.korobeinik.taczarmors.util.MobEquipmentUtil;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,15 +30,24 @@ public class CommonEvents {
     private static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("720292F2-48D5-9434-A29F-7773AF7DF28D");
     private static final UUID ATTACK_KNOCKBACK_MODIFIER = UUID.fromString("730292F2-48D5-9434-A29F-7773AF7DF28D");*/
 
-//    @SubscribeEvent
-//    public static void onLivingJump(LivingEvent.@NotNull LivingJumpEvent event) {
-//        LivingEntity entity = event.getEntity();
-//        entity.setDeltaMovement(
-//            entity.getDeltaMovement().x * sprintMultiplier(entity),
-//            entity.getDeltaMovement().y,
-//            entity.getDeltaMovement().z * sprintMultiplier(entity)
-//        );
-//    }
+    @SubscribeEvent
+    public static void onLivingJump(LivingEvent.@NotNull LivingJumpEvent event) {
+        LivingEntity entity = event.getEntity();
+        /*entity.setDeltaMovement(
+            entity.getDeltaMovement().x * sprintMultiplier(entity),
+            entity.getDeltaMovement().y,
+            entity.getDeltaMovement().z * sprintMultiplier(entity)
+        );*/
+        if (entity instanceof Player player) {
+            Iterable<ItemStack> armor = player.getArmorSlots();
+            for (ItemStack stack : armor) {
+                if (stack.getItem() instanceof CombatArmorItem poweredItem && stack.getAttributeModifiers(poweredItem.getEquipmentSlot()).containsKey(AttributesMod.JUMP)) {
+                    //if (poweredItem.tryConsumeEnergy(stack, 1000) && !player.level().isClientSide()) player.sendSystemMessage(Component.literal("Consumed 1000 for " + stack));
+                    poweredItem.tryConsumeEnergy(stack, 1000);
+                }
+            }
+        }
+    }
 
     protected static float sprintMultiplier(LivingEntity entity){
         return entity.isSprinting() ? 2 : 1;
