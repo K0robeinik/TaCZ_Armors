@@ -1,7 +1,18 @@
 package com.korobeinik.taczarmors.items;
 
+import com.korobeinik.taczarmors.init.ItemInit;
+import com.korobeinik.taczarmors.util.ColorUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 
 public class ColorBottleItem extends Item implements DyeableLeatherItem {
     public ColorBottleItem(Properties pProperties) {
@@ -15,7 +26,24 @@ public class ColorBottleItem extends Item implements DyeableLeatherItem {
 
     public static int getItemColor(ItemStack stack, int tint){ return tint > 0 ? 0xFFFFFF : ((ColorBottleItem)stack.getItem()).getColor(stack);}
 
-//    static ItemStack dyeArmor(ItemStack pStack, List<DyeItem> pDyes) {
+    public static ItemStack addStack(int color){
+        ItemStack stack = ItemInit.COLOR_BOTTLE.get().getDefaultInstance();
+        stack.getOrCreateTagElement("display").putInt("color", color);
+        return stack;
+    }
+
+    @Override
+    public int getDefaultTooltipHideFlags(@NotNull ItemStack stack) {
+        return 64;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> list, TooltipFlag pIsAdvanced) {
+        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
+        list.add(Component.translatable("item.color", ColorUtil.intToHex(this.getColor(pStack))).withStyle(ChatFormatting.GRAY));
+    }
+
+    //    static ItemStack dyeArmor(ItemStack pStack, List<DyeItem> pDyes) {
 //        ItemStack resultStack = ItemStack.EMPTY;
 //        int[] colorArray = new int[3];
 //        int $$4 = 0;

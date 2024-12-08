@@ -8,9 +8,11 @@ import com.korobeinik.taczarmors.items.ColorBottleItem;
 import com.korobeinik.taczarmors.items.armor.DyeableCombatArmorItem;
 import com.korobeinik.taczarmors.items.KevlarHorseArmorItem;
 import com.korobeinik.taczarmors.init.*;
+import com.korobeinik.taczarmors.util.ColorUtil;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -67,13 +69,8 @@ public class TaczArmors {
         @SubscribeEvent
         public static void addColorsTab(BuildCreativeModeTabContentsEvent event){
             if (event.getTab() == CreativeTabInit.COLOR_TAB.get()){
-                ItemStack stack = ItemInit.COLOR_BOTTLE.get().getDefaultInstance();
-                stack.getOrCreateTagElement("display").putInt("color", 0xFF0000);
-                event.accept(stack);
-//                for (DyeColor color : DyeColor.values()) {
-//                    stack.getOrCreateTagElement("display").putInt("color", color.getFireworkColor());
-//                    event.accept(stack);
-//                }
+                for (int color : ColorUtil.dyeColor) event.accept(ColorBottleItem.addStack(color));
+                //if (ClientConfig.CUSTOM_COLORS.get() != null) for (int color : ClientConfig.CUSTOM_COLORS.get()) event.accept(ColorBottleItem.addStack(color));
             }
         }
 
