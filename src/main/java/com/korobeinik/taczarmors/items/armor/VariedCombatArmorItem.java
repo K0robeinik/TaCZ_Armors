@@ -22,10 +22,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class VariedCombatArmorItem extends CombatArmorItem{
+public class VariedCombatArmorItem extends DyeableCombatArmorItem{
     private final String[] variant;
+
     public VariedCombatArmorItem(CombatArmorMaterials armorMaterial, Type type, String[] variant) {
-        super(armorMaterial, type);
+        this(armorMaterial, type, variant, 0xFFFFFF);
+    }
+
+    public VariedCombatArmorItem(CombatArmorMaterials armorMaterial, Type type, String[] variant, int defaultColor) {
+        super(armorMaterial, type, defaultColor);
         this.variant = variant;
     }
 

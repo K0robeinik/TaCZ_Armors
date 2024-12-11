@@ -172,7 +172,7 @@ public class ItemInit {
     private static final String[] camoVariants = {"plain", "pixel", "flecktarn", "marpat"};
 
     public static final RegistryObject<Item> MODERN_HELMET = addToTab(ITEMS.register("modern_helmet",
-            () -> new DyeableCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.MODERN,
                     ArmorItem.Type.HELMET,
                     camoVariants
@@ -180,7 +180,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> MODERN_CHESTPLATE = addToTab(ITEMS.register("modern_chestplate",
-            () -> new DyeableCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.MODERN,
                     ArmorItem.Type.CHESTPLATE,
                     camoVariants
@@ -188,7 +188,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> MODERN_LEGGINGS = addToTab(ITEMS.register("modern_leggings",
-            () -> new DyeableCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.MODERN,
                     ArmorItem.Type.LEGGINGS,
                     camoVariants
@@ -196,7 +196,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> MODERN_BOOTS = addToTab(ITEMS.register("modern_boots",
-            () -> new DyeableCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.MODERN,
                     ArmorItem.Type.BOOTS,
                     camoVariants
@@ -204,7 +204,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> BERET = addToTab(ITEMS.register("beret",
-            () -> new DyeableCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.BERET,
                     ArmorItem.Type.HELMET,
                     camoVariants
@@ -212,7 +212,7 @@ public class ItemInit {
     ));
 
     public static final RegistryObject<Item> GENERAL = addToTab(ITEMS.register("general_cap",
-            () -> new DyeableCombatArmorItem(
+            () -> new VariedCombatArmorItem(
                     ArmorMaterialInit.GENERAL,
                     ArmorItem.Type.HELMET,
                     camoVariants

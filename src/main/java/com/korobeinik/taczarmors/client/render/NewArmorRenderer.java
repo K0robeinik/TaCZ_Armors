@@ -51,7 +51,7 @@ public class NewArmorRenderer <T extends CombatArmorItem> extends DyeableGeoArmo
 
     @Override
     protected @NotNull Color getColorForBone(GeoBone geoBone) {
-        int color = currentStack.getItem() instanceof DyeableLeatherItem ? ((DyeableLeatherItem) currentStack.getItem()).getColor(currentStack) : 0xFFFFFF;
+        int color = currentStack.getItem() instanceof DyeableLeatherItem dyeable ? dyeable.getColor(currentStack) : 0xFFFFFF;
         return Color.ofOpaque(color);
     }
 

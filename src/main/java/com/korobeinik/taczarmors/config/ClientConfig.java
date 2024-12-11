@@ -20,8 +20,12 @@ public class ClientConfig {
             .define("enable_overlay", true);
 
     public static final ForgeConfigSpec.ConfigValue<String> OVERLAY_TEXTURE = BUILDER
-            .comment("What block will be used as overlay")
-            .define("block_name", "glass");
+            .comment("What HUD will be used as overlay")
+            .define("block_name", "hud_0");
+
+    public static final ForgeConfigSpec.DoubleValue SHAKE_INTENSITY = BUILDER
+            .comment("How intense should the HUD shake be.\nSet 0 to disable shaking")
+            .defineInRange("shake_intensity", 0.5D, 0.0D, 1.0D);
 
     /*public static final ForgeConfigSpec.ConfigValue<List<? extends Integer>> CUSTOM_COLORS = BUILDER
             .comment("Add custom colors you want to keep in the colors tab")
