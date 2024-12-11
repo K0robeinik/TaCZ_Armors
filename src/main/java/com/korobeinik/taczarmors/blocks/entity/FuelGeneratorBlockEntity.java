@@ -8,7 +8,10 @@ import com.korobeinik.taczarmors.util.CustomEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -116,13 +119,25 @@ public class FuelGeneratorBlockEntity extends BlockEntity implements MenuProvide
                 }
             }
         }
+        if (energyStorage.getEnergyStored()>0){
+            ItemStack energyItem = this.inventory.getStackInSlot(0);
+            this.chargeItem(energyItem);
+            shouldChange = true;
+        }
         if (flag != isBurning()){
-            //pState = pState.setValue(FuelGeneratorBlock.LIT, isBurning());
-            System.out.println("Changed lit to: " + isBurning());
+            //System.out.println("Changed lit to: " + isBurning());
             pLevel.setBlock(pPos, pState.setValue(FuelGeneratorBlock.LIT, isBurning()), 3);
             shouldChange = true;
         }
         if (shouldChange) setChanged(pLevel, pPos, pState);
+    }
+
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(this.inventory.getSlots());
+        for(int i = 0; i < this.inventory.getSlots(); i++) {
+            inventory.setItem(i, this.inventory.getStackInSlot(i));
+        }
+        Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
     @Override
@@ -191,6 +206,13 @@ public class FuelGeneratorBlockEntity extends BlockEntity implements MenuProvide
 
     public static int getFuelBurnTime(ItemStack stack) {
         return net.minecraftforge.common.ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
+    }
+
+    protected void chargeItem(ItemStack stack) {
+        stack.getCapability(ForgeCapabilities.ENERGY, null).ifPresent(iEnergyStorage -> {
+            int to = iEnergyStorage.receiveEnergy(energyStorage.tryTransfer(), false);
+            energyStorage.extractEnergy(to, false);
+        });
     }
 
     @Override

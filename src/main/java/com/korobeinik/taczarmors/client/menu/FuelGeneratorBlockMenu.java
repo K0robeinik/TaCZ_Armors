@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -68,8 +70,18 @@ public class FuelGeneratorBlockMenu extends AbstractContainerMenu {
 
     private void createBlockEntityInventory(FuelGeneratorBlockEntity be) {
         be.getLazyInventory().ifPresent(inventory -> {
-            addSlot(new SlotItemHandler(inventory, 0, 65, 17)); //energy items
-            addSlot(new SlotItemHandler(inventory, 1, 65, 53)); //fuel
+            addSlot(new SlotItemHandler(inventory, 0, 65, 17){
+                @Override
+                public boolean mayPlace(@NotNull ItemStack stack) {
+                    return isChargeable(stack);
+                }
+            }); //energy items
+            addSlot(new SlotItemHandler(inventory, 1, 65, 53){
+                @Override
+                public boolean mayPlace(@NotNull ItemStack stack) {
+                    return isFuel(stack);
+                }
+            }); //fuel
         });
     }
 
@@ -98,12 +110,12 @@ public class FuelGeneratorBlockMenu extends AbstractContainerMenu {
         ItemStack copyFromStack = fromStack.copy();
 
         if (pIndex < 36){
-            if (this.isFuel(fromStack)){
+            if (isFuel(fromStack)){
                 if (!moveItemStackTo(fromStack, 37, 38, false)){
                     return ItemStack.EMPTY;
                 }
             }
-            if (!moveItemStackTo(fromStack, 36, 38, false)){
+            if (!moveItemStackTo(fromStack, 36, 37, false)) {
                 return ItemStack.EMPTY;
             }
         }
@@ -122,8 +134,17 @@ public class FuelGeneratorBlockMenu extends AbstractContainerMenu {
         return copyFromStack;
     }
 
-    protected boolean isFuel(ItemStack pStack) {
+    protected static boolean isFuel(ItemStack pStack) {
         return net.minecraftforge.common.ForgeHooks.getBurnTime(pStack, RecipeType.SMELTING) > 0;
+    }
+
+    protected static boolean hasEnergyCapability(@NotNull ItemStack stack) {
+        return stack.getCapability(ForgeCapabilities.ENERGY, null).isPresent();
+    }
+
+    protected static boolean isChargeable(@NotNull ItemStack stack) {
+        IEnergyStorage energyStorage = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
+        return hasEnergyCapability(stack) && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored();
     }
 
     @Override
