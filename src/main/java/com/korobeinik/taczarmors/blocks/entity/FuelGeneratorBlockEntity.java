@@ -107,7 +107,7 @@ public class FuelGeneratorBlockEntity extends BlockEntity implements MenuProvide
         if (!isMaxEnergy()) {
             if (isBurning()) {
                 this.burnTime--;
-                this.energyStorage.addEnergy(1);
+                this.energyStorage.addEnergy(50);
                 shouldChange = true;
             }
             if (!isBurning()){
@@ -115,13 +115,14 @@ public class FuelGeneratorBlockEntity extends BlockEntity implements MenuProvide
                 if (isFuel(fuel)){
                     this.burnTime = this.burnDuration = getFuelBurnTime(fuel);
                     fuel.shrink(1);
+                    if (fuel.isEmpty()) this.inventory.setStackInSlot(1, fuel.getCraftingRemainingItem());
                     shouldChange = true;
                 }
             }
         }
         if (energyStorage.getEnergyStored()>0){
             ItemStack energyItem = this.inventory.getStackInSlot(0);
-            this.chargeItem(energyItem);
+            if (!energyItem.isEmpty()) this.chargeItem(energyItem);
             shouldChange = true;
         }
         if (flag != isBurning()){
@@ -209,6 +210,7 @@ public class FuelGeneratorBlockEntity extends BlockEntity implements MenuProvide
     }
 
     protected void chargeItem(ItemStack stack) {
+        if (stack.isEmpty()) return;
         stack.getCapability(ForgeCapabilities.ENERGY, null).ifPresent(iEnergyStorage -> {
             int to = iEnergyStorage.receiveEnergy(energyStorage.tryTransfer(), false);
             energyStorage.extractEnergy(to, false);
