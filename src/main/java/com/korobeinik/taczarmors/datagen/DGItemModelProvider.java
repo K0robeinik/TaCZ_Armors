@@ -44,9 +44,12 @@ public class DGItemModelProvider extends ItemModelProvider {
         simpleItem(ItemInit.GENERAL);
         simpleItem(ItemInit.BERET);
         simpleItem(ItemInit.BATTERY);
+        simpleItem(ItemInit.KEVLAR_HORSE_ARMOR);
         materialItem(ItemInit.STEEL_INGOT);
         materialItem(ItemInit.COPPER_WIRE);
         materialItem(ItemInit.PLASTIC_SHEET);
+        //dyeable
+        dyeableItem(ItemInit.COLOR_BOTTLE);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
@@ -59,5 +62,14 @@ public class DGItemModelProvider extends ItemModelProvider {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
                 new ResourceLocation(TaczArmors.MODID,"item/materials/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder dyeableItem(RegistryObject<Item> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated"))
+                .texture("layer0",
+                new ResourceLocation(TaczArmors.MODID,"item/" + item.getId().getPath()))
+                .texture("layer1",
+                new ResourceLocation(TaczArmors.MODID,"item/" + item.getId().getPath() + "_overlay"));
     }
 }

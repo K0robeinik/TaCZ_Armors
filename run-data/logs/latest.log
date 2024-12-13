@@ -1,37 +1,37 @@
-[13дек.2024 16:18:14.279] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Администратор\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, taczarmors, --all, --output, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\generated\resources, --existing, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\main\resources]
-[13дек.2024 16:18:14.284] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.2 by Oracle Corporation; OS Windows 10 arch amd64 version 10.0
-[13дек.2024 16:18:14.407] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[13дек.2024 16:18:14.459] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Администратор/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[13дек.2024 16:18:14.731] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[13дек.2024 16:18:14.735] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[13дек.2024 16:18:14.738] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[13дек.2024 16:18:14.742] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
-[13дек.2024 16:18:15.069] [main/WARN] [net.minecraftforge.jarjar.selection.JarSelector/]: Attempted to select two dependency jars from JarJar which have the same identification: Mod File:  and Mod File: . Using Mod File: 
-[13дек.2024 16:18:15.070] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 7 dependencies adding them to mods collection
-[13дек.2024 16:18:16.695] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[13дек.2024 16:18:16.718] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Администратор\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, taczarmors, --all, --output, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\generated\resources, --existing, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\main\resources]
-[13дек.2024 16:18:17.009] [main/INFO] [mixin/]: Remapping refMap configured.refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
-[13дек.2024 16:18:17.092] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
-[13дек.2024 16:18:17.097] [main/INFO] [mixin/]: Remapping refMap tacz.refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
-[13дек.2024 16:18:17.098] [main/INFO] [mixin/]: Remapping refMap puffish_attributes-refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
-[13дек.2024 16:18:17.583] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [taczarmors]
-[13дек.2024 16:18:17.725] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.3.6).
-[13дек.2024 16:18:21.435] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
-[13дек.2024 16:18:21.436] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
-[13дек.2024 16:18:21.582] [modloading-worker-0/WARN] [software.bernie.geckolib.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners
-[13дек.2024 16:18:21.727] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[13дек.2024 16:18:21.737] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 7.650 ms
-[13дек.2024 16:18:23.543] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Администратор/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[13дек.2024 16:18:23.544] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Администратор/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[13дек.2024 16:18:23.655] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[13дек.2024 16:18:23.668] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 12 ms
-[13дек.2024 16:18:23.668] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: taczarmors
-[13дек.2024 16:18:23.686] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: taczarmors finished after 18 ms
-[13дек.2024 16:18:23.686] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: taczarmors
-[13дек.2024 16:18:23.697] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: taczarmors finished after 10 ms
-[13дек.2024 16:18:23.697] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id taczarmors
-[13дек.2024 16:18:23.817] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id taczarmors finished after 120 ms
-[13дек.2024 16:18:23.817] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id taczarmors
-[13дек.2024 16:18:23.818] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id taczarmors finished after 0 ms
-[13дек.2024 16:18:23.818] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 163 ms
-[13дек.2024 16:18:23.825] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 42, old count: 42, new count: 43, removed stale: 0, written: 2
+[13дек.2024 16:43:38.065] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Администратор\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, taczarmors, --all, --output, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\generated\resources, --existing, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\main\resources]
+[13дек.2024 16:43:38.070] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.2 by Oracle Corporation; OS Windows 10 arch amd64 version 10.0
+[13дек.2024 16:43:38.208] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[13дек.2024 16:43:38.267] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Администратор/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[13дек.2024 16:43:38.567] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[13дек.2024 16:43:38.570] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[13дек.2024 16:43:38.573] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[13дек.2024 16:43:38.577] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Администратор\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
+[13дек.2024 16:43:38.894] [main/WARN] [net.minecraftforge.jarjar.selection.JarSelector/]: Attempted to select two dependency jars from JarJar which have the same identification: Mod File:  and Mod File: . Using Mod File: 
+[13дек.2024 16:43:38.896] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 7 dependencies adding them to mods collection
+[13дек.2024 16:43:40.515] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[13дек.2024 16:43:40.542] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Администратор\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, taczarmors, --all, --output, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\generated\resources, --existing, C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\src\main\resources]
+[13дек.2024 16:43:40.790] [main/INFO] [mixin/]: Remapping refMap configured.refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
+[13дек.2024 16:43:40.885] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
+[13дек.2024 16:43:40.892] [main/INFO] [mixin/]: Remapping refMap tacz.refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
+[13дек.2024 16:43:40.894] [main/INFO] [mixin/]: Remapping refMap puffish_attributes-refmap.json using C:\Users\Администратор\Desktop\My Own Mods\TaCZ Armors\build\createSrgToMcp\output.srg
+[13дек.2024 16:43:41.379] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [taczarmors]
+[13дек.2024 16:43:41.509] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.3.6).
+[13дек.2024 16:43:45.034] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
+[13дек.2024 16:43:45.035] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
+[13дек.2024 16:43:45.222] [modloading-worker-0/WARN] [software.bernie.geckolib.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners
+[13дек.2024 16:43:45.354] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[13дек.2024 16:43:45.361] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 5.696 ms
+[13дек.2024 16:43:47.317] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Администратор/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[13дек.2024 16:43:47.317] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Администратор/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[13дек.2024 16:43:47.444] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[13дек.2024 16:43:47.461] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 16 ms
+[13дек.2024 16:43:47.462] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: taczarmors
+[13дек.2024 16:43:47.483] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: taczarmors finished after 21 ms
+[13дек.2024 16:43:47.484] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: taczarmors
+[13дек.2024 16:43:47.500] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: taczarmors finished after 16 ms
+[13дек.2024 16:43:47.500] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id taczarmors
+[13дек.2024 16:43:47.612] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id taczarmors finished after 112 ms
+[13дек.2024 16:43:47.612] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id taczarmors
+[13дек.2024 16:43:47.613] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id taczarmors finished after 1 ms
+[13дек.2024 16:43:47.613] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 169 ms
+[13дек.2024 16:43:47.621] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 44, old count: 0, new count: 45, removed stale: 0, written: 44

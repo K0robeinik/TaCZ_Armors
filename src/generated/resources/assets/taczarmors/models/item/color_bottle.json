@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "taczarmors:item/color_bottle",
+    "layer1": "taczarmors:item/color_bottle_overlay"
+  }
+}
