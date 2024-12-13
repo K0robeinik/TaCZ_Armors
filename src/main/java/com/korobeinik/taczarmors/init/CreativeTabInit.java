@@ -20,6 +20,7 @@ public class CreativeTabInit {
 
     public static final List<Supplier<? extends ItemLike>> ARMOR_TAB_ITEMS = new ArrayList<>();
     public static final List<Supplier<? extends ItemLike>> MATERIAL_TAB_ITEMS = new ArrayList<>();
+    public static final List<Supplier<? extends ItemLike>> SPECIAL_ITEMS = new ArrayList<>();
 
     public static final RegistryObject<CreativeModeTab> ARMOR_TAB = TABS.register("armor_tab",
             () -> CreativeModeTab.builder()
@@ -50,6 +51,12 @@ public class CreativeTabInit {
 
     public static <T extends Item> RegistryObject<T> addToTab(RegistryObject<T> itemLike, List<Supplier<? extends ItemLike>> list) {
         list.add(itemLike);
+        return itemLike;
+    }
+
+    public static <T extends Item> RegistryObject<T> addSpecialToTab(RegistryObject<T> itemLike, List<Supplier<? extends ItemLike>> list) {
+        list.add(itemLike);
+        SPECIAL_ITEMS.add(itemLike);
         return itemLike;
     }
 }

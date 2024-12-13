@@ -1,7 +1,0 @@
-
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "taczarmors:item/kevlar_horse_armor"
-  }
-}
