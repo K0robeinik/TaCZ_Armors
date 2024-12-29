@@ -2,7 +2,9 @@ package com.korobeinik.taczarmors.events;
 
 import com.korobeinik.taczarmors.TaczArmors;
 import com.korobeinik.taczarmors.config.ServerConfig;
+import com.korobeinik.taczarmors.init.ArmorItemInit;
 import com.korobeinik.taczarmors.init.ItemInit;
+import com.korobeinik.taczarmors.util.MobEquipmentUtil;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,10 +25,7 @@ public class ServerEvents {
         boolean canSpawn = !ServerConfig.SPAWN_ONLY_IN_HARD.get() || difficulty == Difficulty.HARD;
         if (chance != 0 && canSpawn && chance >= (int) (Math.random() * 100)) {
             if (entity instanceof Zombie || entity instanceof Skeleton) {
-                entity.setItemSlot(EquipmentSlot.HEAD, ItemInit.MODERN_HELMET.get().getDefaultInstance());
-                entity.setItemSlot(EquipmentSlot.CHEST, ItemInit.MODERN_CHESTPLATE.get().getDefaultInstance());
-                entity.setItemSlot(EquipmentSlot.LEGS, ItemInit.MODERN_LEGGINGS.get().getDefaultInstance());
-                entity.setItemSlot(EquipmentSlot.FEET, ItemInit.MODERN_BOOTS.get().getDefaultInstance());
+                MobEquipmentUtil.dressEntity(entity, ArmorItemInit.MODERN_HELMET.get(), ArmorItemInit.MODERN_CHESTPLATE.get(), ArmorItemInit.MODERN_LEGGINGS.get(), ArmorItemInit.MODERN_BOOTS.get());
             }
         }
     }

@@ -50,6 +50,7 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     };
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
     protected final String suitName;
+    protected final String modelName;
     private final CombatArmorMaterials combatArmorMaterial;
 
     public CombatArmorItem(CombatArmorMaterials armorMaterial, Type type) {
@@ -57,9 +58,14 @@ public class CombatArmorItem extends ArmorItem implements GeoItem {
     }
 
     public CombatArmorItem(String suitName, CombatArmorMaterials armorMaterial, Type type) {
+        this(suitName, armorMaterial.getName(), armorMaterial, type);
+    }
+
+    public CombatArmorItem(String suitName, String modelName, CombatArmorMaterials armorMaterial, Type type) {
         super(armorMaterial, type, new Item.Properties());
         this.combatArmorMaterial = armorMaterial;
         this.suitName = suitName;
+        this.modelName = modelName;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIERS[type.ordinal()];
         if (armorMaterial.getDefenseForType(this.type) > 0)

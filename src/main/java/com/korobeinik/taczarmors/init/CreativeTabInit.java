@@ -25,7 +25,7 @@ public class CreativeTabInit {
     public static final RegistryObject<CreativeModeTab> ARMOR_TAB = TABS.register("armor_tab",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.taczArmors"))
-                    .icon(ItemInit.SECURITY_HELMET.get()::getDefaultInstance)
+                    .icon(ArmorItemInit.SECURITY_HELMET.get()::getDefaultInstance)
                     .displayItems((displayParameters, output) -> ARMOR_TAB_ITEMS.forEach(itemLike -> output.accept(itemLike.get())))
                     .build()
     );

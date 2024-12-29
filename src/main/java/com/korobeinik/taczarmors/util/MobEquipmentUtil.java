@@ -1,8 +1,10 @@
 package com.korobeinik.taczarmors.util;
 
+import com.korobeinik.taczarmors.init.ArmorItemInit;
 import com.korobeinik.taczarmors.items.armor.CombatArmorItem;
 import com.korobeinik.taczarmors.init.ItemInit;
 import com.korobeinik.taczarmors.items.armor.PoweredCombatArmorItem;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
@@ -29,8 +31,19 @@ public class MobEquipmentUtil {
         return null;
     }
 
+    public static void dressEntity(LivingEntity entity, Item helmet, Item chestplate, Item leggings, Item boots) {
+        dressEntity(entity, helmet.getDefaultInstance(), chestplate.getDefaultInstance(), leggings.getDefaultInstance(), boots.getDefaultInstance());
+    }
+
+    public static void dressEntity(LivingEntity entity, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+        entity.setItemSlot(EquipmentSlot.HEAD, helmet);
+        entity.setItemSlot(EquipmentSlot.CHEST, chestplate);
+        entity.setItemSlot(EquipmentSlot.LEGS, leggings);
+        entity.setItemSlot(EquipmentSlot.FEET, boots);
+    }
+
     private enum ArmorSet{
-        SOLDIER(getRandomNbt(ItemInit.MODERN_HELMET.get()), getRandomNbt(ItemInit.MODERN_CHESTPLATE.get()), getRandomNbt(ItemInit.MODERN_LEGGINGS.get()), getRandomNbt(ItemInit.MODERN_BOOTS.get()), 1);
+        SOLDIER(getRandomNbt(ArmorItemInit.MODERN_HELMET.get()), getRandomNbt(ArmorItemInit.MODERN_CHESTPLATE.get()), getRandomNbt(ArmorItemInit.MODERN_LEGGINGS.get()), getRandomNbt(ArmorItemInit.MODERN_BOOTS.get()), 1);
         ArmorSet(ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots, int weight){
 
         }

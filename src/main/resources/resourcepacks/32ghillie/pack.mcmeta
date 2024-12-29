@@ -1,6 +1,8 @@
 {
   "pack": {
-    "pack_format": 15,
-    "description": "32x version of ghillie armors"
+    "description": {
+      "text": "32x version of ghillie armors"
+    },
+    "pack_format": 15
   }
 }

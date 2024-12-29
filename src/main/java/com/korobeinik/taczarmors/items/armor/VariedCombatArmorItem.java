@@ -57,7 +57,7 @@ public class VariedCombatArmorItem extends DyeableCombatArmorItem{
         itemStack.getOrCreateTagElement("display").putByte("taVariant", v);
     }
 
-    public byte getCurrentVariant(ItemStack itemStack) {
+    public static byte getCurrentVariant(ItemStack itemStack) {
         CompoundTag cur = itemStack.getTagElement("display");
         return (cur != null && cur.contains("taVariant")) ? cur.getByte("taVariant") : (byte) 0;
     }
@@ -77,9 +77,9 @@ public class VariedCombatArmorItem extends DyeableCombatArmorItem{
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
+    protected void appendMain(@NotNull ItemStack pStack, @org.jetbrains.annotations.Nullable Level pLevel, @NotNull List<Component> list, @NotNull TooltipFlag pIsAdvanced) {
         list.add(Component.translatable("item.tooltip.taczarmors.variant").append(getCurrentVariantComponent(pStack)).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(pStack, pLevel, list, pIsAdvanced);
+        super.appendMain(pStack, pLevel, list, pIsAdvanced);
     }
 
     @Override
